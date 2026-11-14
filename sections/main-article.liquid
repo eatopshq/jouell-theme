@@ -1,0 +1,22 @@
+<article class="page-width article">
+  <nav class="breadcrumb" aria-label="{{ 'general.breadcrumb' | t }}">
+    <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a> /
+    <a href="{{ blog.url }}">{{ blog.title }}</a> /
+    <span aria-current="page">{{ article.title }}</span>
+  </nav>
+  <p class="kicker">{{ article.published_at | time_tag: format: 'date' }}</p>
+  <h1 class="display display--md">{{ article.title }}</h1>
+  {%- if article.image -%}
+    <div class="article__image">
+      {% render 'responsive-image', image: article.image, sizes: '(min-width: 990px) 900px, 100vw', eager: true %}
+    </div>
+  {%- endif -%}
+  <div class="rte article__content">{{ article.content }}</div>
+</article>
+
+{% schema %}
+{
+  "name": "Blog post",
+  "settings": []
+}
+{% endschema %}

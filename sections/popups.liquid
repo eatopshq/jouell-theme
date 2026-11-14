@@ -1,0 +1,190 @@
+{%- liquid
+  assign s = section.settings
+  assign wa_number = s.wa_number | remove: '+' | remove: ' ' | remove: '-'
+  assign wa_message = s.wa_message
+  if request.page_type == 'product'
+    assign wa_message = wa_message | append: ' (' | append: product.title | append: ')'
+  endif
+  assign show_signup = false
+  if s.signup_enabled
+    if s.signup_pages == 'all' or request.page_type == 'index'
+      assign show_signup = true
+    endif
+  endif
+-%}
+
+{%- if show_signup -%}
+  <div
+    class="popup"
+    id="SignupPopup"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="SignupPopupTitle"
+    data-popup="signup"
+    data-delay="{{ s.signup_delay }}"
+    hidden
+  >
+    <div class="popup__overlay" data-popup-close></div>
+    <div class="popup__panel{% if s.signup_image != blank %} popup__panel--split{% endif %}">
+      {%- if s.signup_image != blank -%}
+        <div class="popup__media">
+          {% render 'responsive-image', image: s.signup_image, sizes: '360px', max_width: 720 %}
+        </div>
+      {%- endif -%}
+      <div class="popup__content">
+        <button type="button" class="popup__close" data-popup-close aria-label="{{ 'general.close' | t }}">×</button>
+        {%- form 'customer', id: 'SignupPopupForm', class: 'popup__form', data-signup-form: '' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="popup__success" data-signup-success>
+              <p class="eyebrow">{{ 'popups.signup.success_eyebrow' | t }}</p>
+              <h2 class="h3" id="SignupPopupTitle">{{ s.signup_success_heading }}</h2>
+              <p class="popup__text">{{ 'popups.signup.your_code' | t }}</p>
+              <div class="popup__code">
+                <span data-code>{{ s.signup_code }}</span>
+                <button type="button" class="text-button" data-copy-code>{{ 'popups.signup.copy' | t }}</button>
+              </div>
+              <p class="popup__small">{{ s.signup_success_text }}</p>
+              <button type="button" class="button button--dark button--block" data-popup-close>
+                {{- 'popups.signup.start_shopping' | t -}}
+              </button>
+            </div>
+          {%- else -%}
+            <p class="eyebrow">{{ s.signup_eyebrow }}</p>
+            <h2 class="h3" id="SignupPopupTitle">{{ s.signup_heading }}</h2>
+            <p class="popup__text">{{ s.signup_text }}</p>
+
+            <input type="hidden" name="contact[tags]" value="whatsapp-optin,popup-{{ s.signup_code | downcase }}" data-signup-tags>
+
+            <label class="popup__label" for="SignupPhone">{{ 'popups.signup.whatsapp' | t }}</label>
+            <div class="popup__phone">
+              <span aria-hidden="true">+91</span>
+              <input
+                id="SignupPhone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel-national"
+                maxlength="10"
+                pattern="[6-9][0-9]{9}"
+                placeholder="98765 43210"
+                required
+                data-signup-phone
+              >
+            </div>
+
+            <label class="popup__label" for="SignupEmail">{{ 'popups.signup.email' | t }}</label>
+            <input
+              id="SignupEmail"
+              class="popup__input"
+              type="email"
+              name="contact[email]"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            >
+
+            {%- if form.errors -%}
+              <p class="popup__error" role="alert">{{ form.errors | default_errors }}</p>
+            {%- endif -%}
+            <p class="popup__error" role="alert" hidden data-signup-error>{{ 'popups.signup.invalid_phone' | t }}</p>
+
+            <button type="submit" class="button button--accent button--block">{{ s.signup_button }}</button>
+            <p class="popup__small">{{ s.signup_consent }}</p>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if s.exit_enabled and request.page_type != 'cart' -%}
+  <div
+    class="popup"
+    id="ExitPopup"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ExitPopupTitle"
+    data-popup="exit"
+    hidden
+  >
+    <div class="popup__overlay" data-popup-close></div>
+    <div class="popup__panel">
+      <div class="popup__content">
+        <button type="button" class="popup__close" data-popup-close aria-label="{{ 'general.close' | t }}">×</button>
+        <h2 class="h3" id="ExitPopupTitle">{{ s.exit_heading }}</h2>
+        <p class="popup__text">{{ s.exit_text }}</p>
+        <ul class="popup__items" role="list" data-exit-items></ul>
+        <p class="popup__subtotal">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          <span data-exit-subtotal></span>
+        </p>
+        {%- if s.exit_code != blank -%}
+          <p class="popup__offer">{{ 'popups.exit.use_code_html' | t: code: s.exit_code }}</p>
+        {%- endif -%}
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="button button--accent button--block">{{ s.exit_button }}</button>
+        </form>
+        <button type="button" class="popup__secondary text-button" data-popup-close>{{ 'popups.exit.keep_browsing' | t }}</button>
+        <p class="popup__small popup__small--center">{{ s.exit_reassurance }}</p>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if s.wa_enabled and wa_number != blank -%}
+  <a
+    class="wa-float"
+    href="https://wa.me/{{ wa_number }}?text={{ wa_message | url_encode }}"
+    target="_blank"
+    rel="noopener"
+    aria-label="{{ 'popups.whatsapp.label' | t }}"
+  >
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+      <path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.2-3.8 1.2 1.2-3.7-.3-.4a10.4 10.4 0 0 1-1.7-5.8C5.1 9.9 10 5.2 16 5.2s10.9 4.7 10.9 10.6S22 26.4 16 26.4zm6-7.9c-.3-.2-1.9-1-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/>
+    </svg>
+    <span class="wa-float__label">{{ s.wa_label }}</span>
+  </a>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Popups and WhatsApp",
+  "class": "section-popups",
+  "settings": [
+    { "type": "header", "content": "WhatsApp signup popup" },
+    { "type": "checkbox", "id": "signup_enabled", "label": "Show signup popup", "default": true },
+    {
+      "type": "select",
+      "id": "signup_pages",
+      "label": "Show on",
+      "options": [
+        { "value": "home", "label": "Homepage only" },
+        { "value": "all", "label": "Every page" }
+      ],
+      "default": "home"
+    },
+    { "type": "range", "id": "signup_delay", "label": "Show after", "min": 3, "max": 60, "step": 1, "unit": "s", "default": 10 },
+    { "type": "image_picker", "id": "signup_image", "label": "Image (optional)" },
+    { "type": "text", "id": "signup_eyebrow", "label": "Small line", "default": "First order offer" },
+    { "type": "text", "id": "signup_heading", "label": "Heading", "default": "Get 10% off your first order" },
+    { "type": "textarea", "id": "signup_text", "label": "Text", "default": "Join us on WhatsApp for new arrivals and festive offers. Your code appears right after you sign up." },
+    { "type": "text", "id": "signup_button", "label": "Button", "default": "Get my 10% off" },
+    { "type": "text", "id": "signup_code", "label": "Discount code", "default": "WELCOME10", "info": "Create this code in Discounts first." },
+    { "type": "text", "id": "signup_consent", "label": "Consent line", "default": "By signing up you agree to receive offers on WhatsApp and email. Unsubscribe any time." },
+    { "type": "text", "id": "signup_success_heading", "label": "Success heading", "default": "You are in!" },
+    { "type": "text", "id": "signup_success_text", "label": "Success note", "default": "Use it at checkout on your first order. One use per customer." },
+    { "type": "header", "content": "Exit popup (only when the bag has items)" },
+    { "type": "checkbox", "id": "exit_enabled", "label": "Show exit popup", "default": true },
+    { "type": "text", "id": "exit_heading", "label": "Heading", "default": "Your bag is waiting" },
+    { "type": "text", "id": "exit_text", "label": "Text", "default": "Your picks are saved. Checkout takes a minute, and you can pay on delivery." },
+    { "type": "text", "id": "exit_code", "label": "Discount code (optional)", "info": "Leave empty to show no code." },
+    { "type": "text", "id": "exit_button", "label": "Button", "default": "Complete my order" },
+    { "type": "text", "id": "exit_reassurance", "label": "Reassurance line", "default": "Cash on delivery · Free gift box · 7-day exchange" },
+    { "type": "header", "content": "Floating WhatsApp button" },
+    { "type": "checkbox", "id": "wa_enabled", "label": "Show WhatsApp button", "default": true },
+    { "type": "text", "id": "wa_number", "label": "WhatsApp number", "default": "919958708555", "info": "Country code + number, no spaces, e.g. 919958708555" },
+    { "type": "text", "id": "wa_message", "label": "Prefilled message", "default": "Hi Jouell, I need help with an order" },
+    { "type": "text", "id": "wa_label", "label": "Label (desktop)", "default": "Chat with us" }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{%- comment -%}
+  Rendered on demand through the Section Rendering API to refresh the
+  cart drawer after cart changes. Not meant to be added in the editor.
+{%- endcomment -%}
+{% render 'cart-drawer-contents' %}
+
+{% schema %}
+{
+  "name": "Cart drawer contents",
+  "settings": []
+}
+{% endschema %}

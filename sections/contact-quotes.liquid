@@ -1,0 +1,77 @@
+{%- assign s = section.settings -%}
+
+<div class="section-pad-top">
+  <div class="page-width contact-quotes">
+    <div>
+      {%- if s.contact_heading != blank -%}<h2 class="h3">{{ s.contact_heading }}</h2>{%- endif -%}
+      <dl class="spec-list spec-list--top">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'contact' -%}
+            <div class="spec-list__row" {{ block.shopify_attributes }}>
+              <dt>{{ block.settings.label }}</dt>
+              <dd>{{ block.settings.value }}</dd>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </dl>
+    </div>
+    <div>
+      {%- if s.quotes_heading != blank -%}<h2 class="h3">{{ s.quotes_heading }}</h2>{%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'quote' -%}
+          <figure class="quote" {{ block.shopify_attributes }}>
+            <blockquote>“{{ block.settings.quote }}”</blockquote>
+            <figcaption>{{ block.settings.author }}</figcaption>
+          </figure>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact and quotes",
+  "settings": [
+    { "type": "text", "id": "contact_heading", "label": "Contact heading", "default": "Talk to us before you buy" },
+    { "type": "text", "id": "quotes_heading", "label": "Quotes heading", "default": "What customers say" }
+  ],
+  "blocks": [
+    {
+      "type": "contact",
+      "name": "Contact row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Call" },
+        { "type": "inline_richtext", "id": "value", "label": "Value", "default": "+91 99587 08555 · +91 98731 86107" }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Third order from Jouell and they never disappoint — wore it to a wedding with my lehenga and got compliments all night." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Meera Patel · via Instagram" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact and quotes",
+      "blocks": [
+        { "type": "contact" },
+        { "type": "contact", "settings": { "label": "Email", "value": "jouellindia@gmail.com" } },
+        { "type": "contact", "settings": { "label": "Hours", "value": "7 days a week, 9:00 am – 7:00 pm" } },
+        { "type": "contact", "settings": { "label": "Parent firm", "value": "Fashionpur India, est. 2012" } },
+        { "type": "quote" },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "Was hesitant ordering for the first time, but the colour is gorgeous in person and the layered style looks elegant. Definitely ordering again.",
+            "author": "Anjali Reddy · via Email"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

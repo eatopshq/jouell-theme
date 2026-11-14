@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "title": "Shop",
+            "menu": "footer-shop"
+          }
+        },
+        "help": {
+          "type": "menu",
+          "settings": {
+            "title": "Help",
+            "menu": "footer"
+          }
+        },
+        "contact": {
+          "type": "text",
+          "settings": {
+            "title": "Say hello",
+            "text": "<p><a href=\"tel:+919958708555\">+91 99587 08555</a><br><a href=\"tel:+919873186107\">+91 98731 86107</a><br><a href=\"mailto:jouellindia@gmail.com\">jouellindia@gmail.com</a><br>7 days, 9 am – 7 pm</p>"
+          }
+        }
+      },
+      "block_order": [
+        "shop",
+        "help",
+        "contact"
+      ],
+      "settings": {
+        "copyright": "Jouell · a subsidiary of Fashionpur India",
+        "disclaimer": "Fashion jewellery in plated alloy. Not gold or hallmarked silver."
+      }
+    },
+    "popups": {
+      "type": "popups",
+      "settings": {
+        "signup_enabled": true,
+        "signup_pages": "home",
+        "signup_delay": 10,
+        "signup_code": "WELCOME10",
+        "exit_enabled": true,
+        "wa_enabled": true,
+        "wa_number": "919958708555"
+      }
+    }
+  },
+  "order": [
+    "footer",
+    "popups"
+  ]
+}

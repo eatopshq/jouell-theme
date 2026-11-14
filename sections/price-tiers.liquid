@@ -1,0 +1,59 @@
+{%- assign s = section.settings -%}
+
+<div class="section-pad-top">
+  <div class="page-width">
+    {% render 'section-heading', kicker: s.kicker, heading: s.heading, aside: s.aside, bordered: true %}
+
+    <div class="product-grid mobile-scroll" style="--cols: 4; --m-col: 64%;" data-mobile-scroll>
+      {%- for block in section.blocks -%}
+        <a class="tier" href="{{ block.settings.link | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
+          <span class="tier__media">
+            {% render 'responsive-image', image: block.settings.image, sizes: '(min-width: 990px) 25vw, 50vw', max_width: 800 %}
+          </span>
+          <span class="tier__title">{{ block.settings.title }}</span>
+          <span class="tier__text">{{ block.settings.text }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by price",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BY BUDGET" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by price" },
+    { "type": "text", "id": "aside", "label": "Right-side text", "default": "Four tiers, ₹840 to ₹6,099" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Price tier",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Under ₹1,500" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Beads, pearls, everyday studs" },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Tip: link to a collection with a price filter, e.g. /collections/all?filter.v.price.lte=1500"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by price",
+      "blocks": [
+        { "type": "tier", "settings": { "title": "Under ₹1,500", "text": "Beads, pearls, everyday studs" } },
+        { "type": "tier", "settings": { "title": "₹1,500 – ₹2,500", "text": "Jhumkas, oxidised sets, bangles" } },
+        { "type": "tier", "settings": { "title": "₹2,500 – ₹4,000", "text": "Kundan and pendant sets" } },
+        { "type": "tier", "settings": { "title": "₹4,000 and up", "text": "Bridal statement sets, kada" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

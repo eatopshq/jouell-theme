@@ -1,0 +1,97 @@
+{%- liquid
+  assign s = section.settings
+  assign style = s.style
+-%}
+
+<div class="{% if style == 'full' %}section-margin-top{% else %}section-pad-top{% endif %}">
+  <div class="{% unless style == 'full' %}page-width{% endunless %}">
+    <div class="split split--{{ s.layout }} split--{{ style }}" style="--split-min: {{ s.min_height }}px;">
+      <div class="split__media">
+        {% render 'responsive-image', image: s.image, sizes: '(min-width: 990px) 50vw, 100vw', max_width: 1400 %}
+      </div>
+      <div class="split__text">
+        {%- if s.kicker != blank -%}<p class="kicker">{{ s.kicker }}</p>{%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="h2 h2--lg">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<div class="rte lead">{{ s.text }}</div>{%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="stats">
+            {%- for block in section.blocks -%}
+              <div class="stat" {{ block.shopify_attributes }}>
+                <p class="stat__value">{{ block.settings.value }}</p>
+                <p class="stat__label">{{ block.settings.label }}</p>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if s.link_label != blank -%}
+          <a class="text-link text-link--lg" href="{{ s.link_url | default: routes.all_products_collection_url }}">
+            {{- s.link_label -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        { "value": "image-left", "label": "Left" },
+        { "value": "image-right", "label": "Right" }
+      ],
+      "default": "image-left"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        { "value": "full", "label": "Full-width split, sand text panel" },
+        { "value": "panel", "label": "Inset sand panel" },
+        { "value": "plain", "label": "Plain, inside page margins" }
+      ],
+      "default": "full"
+    },
+    { "type": "range", "id": "min_height", "label": "Minimum height", "min": 300, "max": 700, "step": 20, "unit": "px", "default": 460 },
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "OXIDISED SILVER" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Blackened silver-tone, rooted in Indian artistry" },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Temple motifs, tribal chokers and ghungroo jhumkas — the lightest thing we make, and the category that never leaves the wardrobe after the wedding.</p>"
+    },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop oxidised silver" },
+    { "type": "url", "id": "link_url", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "₹1,470" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Starting price" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "₹1,470", "label": "Starting price" } },
+        { "type": "stat", "settings": { "value": "32 pieces", "label": "In the collection" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

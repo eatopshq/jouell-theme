@@ -1,0 +1,53 @@
+{%- assign s = section.settings -%}
+
+<div class="section-pad-top">
+  <div class="page-width">
+    {%- if s.kicker != blank -%}<p class="kicker">{{ s.kicker }}</p>{%- endif -%}
+    {%- if s.heading != blank -%}<h2 class="h2 text-columns__heading">{{ s.heading }}</h2>{%- endif -%}
+    <div class="text-columns mobile-scroll" style="--cols: {{ section.blocks.size | at_least: 1 }}; --m-col: 76%;" data-mobile-scroll>
+      {%- for block in section.blocks -%}
+        <div class="text-columns__item" {{ block.shopify_attributes }}>
+          <h3 class="h4">{{ block.settings.title }}</h3>
+          <div class="rte">{{ block.settings.text }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Text columns",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "WHAT WE MAKE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Four things we will always tell you before you buy" }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "The metal" },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Alloys of silver, brass and copper, plated gold-tone or rhodium. Fashion jewellery — not gold, not hallmarked silver.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text columns",
+      "blocks": [
+        { "type": "column" },
+        { "type": "column", "settings": { "title": "The stones", "text": "<p>Semi-precious stones, American Diamond and kundan-style settings, hand-set by the artisans who make our sets.</p>" } },
+        { "type": "column", "settings": { "title": "The weight", "text": "<p>Stated in grams on every product page, because a set you can dance in matters more than one that looks heavy.</p>" } },
+        { "type": "column", "settings": { "title": "The price", "text": "<p>Luxury made accessible: a whole bridal party dressed for less than a single gold set, with no repeat looks.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

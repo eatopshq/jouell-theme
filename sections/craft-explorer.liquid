@@ -1,0 +1,141 @@
+{%- assign s = section.settings -%}
+
+<div class="section-pad-top" data-craft-explorer>
+  <div class="page-width">
+    {% render 'section-heading', kicker: s.kicker, heading: s.heading, aside: s.aside, bordered: true %}
+
+    <div class="craft">
+      <div class="craft__stage">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign b = block.settings
+            assign url = b.collection.url | default: routes.all_products_collection_url
+            assign name = b.name | default: b.collection.title
+          -%}
+          <div
+            class="craft__panel"
+            id="CraftPanel-{{ block.id }}"
+            role="tabpanel"
+            aria-labelledby="CraftTab-{{ block.id }}"
+            data-craft-panel
+            {% unless forloop.first %}
+              hidden
+            {% endunless %}
+            {{ block.shopify_attributes }}
+          >
+            <div class="craft__media">
+              {% render 'responsive-image', image: b.image, sizes: '(min-width: 990px) 56vw, 100vw', max_width: 1400 %}
+            </div>
+            <div class="craft__info">
+              {%- if b.kicker != blank -%}<p class="kicker">{{ b.kicker }}</p>{%- endif -%}
+              <h3 class="h2">{{ name }}</h3>
+              {%- if b.copy != blank -%}<p class="lead">{{ b.copy }}</p>{%- endif -%}
+              <div class="stats">
+                {%- if b.from != blank -%}
+                  <div class="stat">
+                    <p class="stat__value">{{ b.from }}</p>
+                    <p class="stat__label">{{ 'sections.craft.starting_price' | t }}</p>
+                  </div>
+                {%- endif -%}
+                {%- if b.count != blank -%}
+                  <div class="stat">
+                    <p class="stat__value">{{ b.count }}</p>
+                    <p class="stat__label">{{ 'sections.craft.in_collection' | t }}</p>
+                  </div>
+                {%- endif -%}
+                {%- if b.wear != blank -%}
+                  <div class="stat">
+                    <p class="stat__value">{{ b.wear }}</p>
+                    <p class="stat__label">{{ 'sections.craft.wears_best' | t }}</p>
+                  </div>
+                {%- endif -%}
+              </div>
+              <a class="text-link text-link--lg" href="{{ url }}">{{ 'sections.craft.shop' | t: name: name }}</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="craft__list" role="tablist" aria-label="{{ s.heading | escape }}">
+        {%- for block in section.blocks -%}
+          {%- assign b = block.settings -%}
+          <button
+            type="button"
+            class="craft__tab"
+            id="CraftTab-{{ block.id }}"
+            role="tab"
+            aria-controls="CraftPanel-{{ block.id }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-craft-tab
+          >
+            <span class="craft__thumb">
+              {% render 'responsive-image', image: b.image, sizes: '64px', max_width: 200 %}
+            </span>
+            <span class="craft__tab-text">
+              <span class="craft__tab-name">{{ b.name | default: b.collection.title }}</span>
+              <span class="craft__tab-short">{{ b.short }}</span>
+            </span>
+            <span class="craft__mark" aria-hidden="true">
+              <span class="craft__mark-active">{{ 'sections.craft.viewing' | t }}</span>
+              <span class="craft__mark-idle">›</span>
+            </span>
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by craft",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "BY CRAFT" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by craft" },
+    { "type": "text", "id": "aside", "label": "Right-side text", "default": "Six traditions — pick one to see it up close" }
+  ],
+  "blocks": [
+    {
+      "type": "craft",
+      "name": "Craft",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Kundan & Polki" },
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "UNCUT-STONE TRADITION" },
+        { "type": "text", "id": "short", "label": "Short line (list)", "default": "The wedding standard, in gold-tone foil" },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Description",
+          "default": "Flat uncut-stone forms set in gold-tone foil, the look Indian brides have worn for four centuries. Heaviest in appearance, lightest on the neck of anything we make at this price."
+        },
+        { "type": "text", "id": "from", "label": "Starting price", "default": "₹2,990" },
+        { "type": "text", "id": "count", "label": "In the collection", "default": "42 sets" },
+        { "type": "text", "id": "wear", "label": "Wears best at", "default": "Shaadi" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by craft",
+      "blocks": [
+        { "type": "craft" },
+        {
+          "type": "craft",
+          "settings": {
+            "name": "American Diamond",
+            "kicker": "CUBIC ZIRCONIA",
+            "short": "Our sparkle category, brilliant under lights",
+            "copy": "Cubic zirconia hand-set in rhodium and gold-tone. Cut to throw light in a photograph, which is why it is the category people buy for sangeet and reception.",
+            "from": "₹1,728",
+            "count": "51 sets",
+            "wear": "Sangeet"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

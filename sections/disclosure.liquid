@@ -1,0 +1,70 @@
+{%- assign s = section.settings -%}
+
+<div class="section-pad-top">
+  <div class="page-width">
+    <div class="disclosure">
+      <div class="disclosure__intro">
+        {%- if s.kicker != blank -%}
+        <div class="disclosure__kicker">
+          <span class="disclosure__seal" aria-hidden="true">J</span>
+          <p class="kicker">{{ s.kicker }}</p>
+        </div>
+        {%- endif -%}
+        {%- if s.heading != blank -%}<h2 class="h2">{{ s.heading }}</h2>{%- endif -%}
+        {%- if s.text != blank -%}<p class="lead">{{ s.text }}</p>{%- endif -%}
+        {%- if s.link_label != blank -%}
+          <a class="text-link text-link--lg" href="{{ s.link_url | default: '#' }}">{{ s.link_label }}</a>
+        {%- endif -%}
+      </div>
+      <dl class="spec-list spec-list--boxed">
+        {%- for block in section.blocks -%}
+          <div class="spec-list__row" {{ block.shopify_attributes }}>
+            <dt>{{ block.settings.label }}</dt>
+            <dd>{{ block.settings.value }}</dd>
+          </div>
+        {%- endfor -%}
+      </dl>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Full disclosure",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "FULL DISCLOSURE · पूरी जानकारी" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What you are buying, in plain words" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "No other festive brand prints this on the homepage. We do, because the price only makes sense once you know exactly what is in your hand."
+    },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Read the care and materials guide" },
+    { "type": "url", "id": "link_url", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Metal" },
+        { "type": "text", "id": "value", "label": "Value", "default": "Silver, brass and copper alloy — plated gold-tone or rhodium" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Full disclosure",
+      "blocks": [
+        { "type": "row" },
+        { "type": "row", "settings": { "label": "Stones", "value": "Semi-precious, American Diamond and kundan-style settings" } },
+        { "type": "row", "settings": { "label": "Weight", "value": "Printed in grams on every set, because you have to wear it all night" } },
+        { "type": "row", "settings": { "label": "Photographs", "value": "The piece as it ships — no renders, no borrowed images" } },
+        { "type": "row", "settings": { "label": "Not", "value": "Gold. Not hallmarked silver. Never sold as either." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

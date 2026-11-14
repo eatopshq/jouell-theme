@@ -1,0 +1,59 @@
+{%- liquid
+  assign s = section.settings
+  assign rating = product.metafields.reviews.rating.value
+  assign aside = s.aside
+  if rating != blank
+    assign aside = 'products.average_rating' | t: rating: rating.rating
+  endif
+-%}
+
+<div class="section-pad-top" id="Reviews">
+  <div class="page-width">
+    {% render 'section-heading', heading: s.heading, aside: aside, bordered: true %}
+
+    {%- if s.app_html != blank -%}
+      <div class="reviews-app">{{ s.app_html }}</div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="product-grid mobile-scroll" style="--cols: 3; --m-col: 82%;" data-mobile-scroll>
+        {%- for block in section.blocks -%}
+          <figure class="review review--compact" {{ block.shopify_attributes }}>
+            {% render 'stars', count: block.settings.stars %}
+            <blockquote class="review__quote">{{ block.settings.quote }}</blockquote>
+            <figcaption class="review__source">{{ block.settings.author }}</figcaption>
+          </figure>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Reviews" },
+    { "type": "text", "id": "aside", "label": "Right-side text", "default": "4.8 average · verified purchases" },
+    {
+      "type": "liquid",
+      "id": "app_html",
+      "label": "Reviews app widget",
+      "info": "Optional. Paste a reviews app snippet here, or add the app's block to this template and remove this section."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Review", "default": "Wore it to a wedding with my lehenga and got compliments all night. Worth every rupee." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Meera Patel · via Instagram" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Reviews" }]
+}
+{% endschema %}

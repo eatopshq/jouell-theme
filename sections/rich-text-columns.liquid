@@ -1,0 +1,48 @@
+<div class="section-margin-top notes">
+  <div class="page-width notes__inner">
+    {%- assign own_notes = collection.metafields.custom.collection_notes.value -%}
+    {%- for block in section.blocks -%}
+      {%- if forloop.first and own_notes != blank -%}
+        {%- comment -%} A collection's own notes (Collection notes field) replace the first, general column {%- endcomment -%}
+        <div class="rte notes__col" {{ block.shopify_attributes }}><p>{{ own_notes | newline_to_br }}</p></div>
+      {%- else -%}
+        <div class="rte notes__col" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Notes (two columns)",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Every set here is a necklace with its matching earrings; some include a maang tikka, and the piece count is stated on each product page. Metals are alloys of silver, brass and copper, plated gold-tone or rhodium, set with semi-precious and American Diamond stones.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Notes (two columns)",
+      "blocks": [
+        { "type": "text" },
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>Not gold, not hallmarked silver — and never described as either. Sets arrive gift-boxed with a pouch and card, exchange within 7 days, and reach most pincodes in 3–7 days with cash on delivery available.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

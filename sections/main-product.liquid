@@ -1,0 +1,416 @@
+{%- liquid
+  assign product_type = product.type | downcase
+  assign is_bangle = false
+  if product_type contains 'bangle' or product_type contains 'kada'
+    assign is_bangle = true
+  endif
+  assign product_form_id = 'ProductForm-' | append: section.id
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured = current_variant.featured_media | default: product.featured_media
+  assign crumb_collection = collection
+  if crumb_collection == blank or crumb_collection.handle == 'frontpage'
+    assign crumb_collection = nil
+    # Prefer the collection named after the product type (e.g. "Necklace Sets"), then any other
+    for c in product.collections
+      if product.type != blank and c.title contains product.type
+        assign crumb_collection = c
+        break
+      endif
+    endfor
+    if crumb_collection == nil
+      for c in product.collections
+        unless c.handle == 'frontpage'
+          assign crumb_collection = c
+          break
+        endunless
+      endfor
+    endif
+  endif
+-%}
+
+<div class="product page-width" data-product data-section-id="{{ section.id }}" data-url="{{ product.url }}">
+  <nav class="breadcrumb breadcrumb--product" aria-label="{{ 'general.breadcrumb' | t }}">
+    <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a> /
+    {%- if crumb_collection %}
+      <a href="{{ crumb_collection.url }}">{{ crumb_collection.title }}</a> /
+    {%- endif %}
+    <span aria-current="page">{{ product.title }}</span>
+  </nav>
+
+  <div class="product__grid">
+    <div class="gallery" data-gallery>
+      {%- if product.media.size > 1 -%}
+        <ul class="gallery__thumbs" role="list">
+          {%- for media in product.media -%}
+            <li>
+              <button
+                type="button"
+                class="gallery__thumb{% if media.id == featured.id %} is-active{% endif %}"
+                data-thumb="{{ media.id }}"
+                aria-label="{{ 'products.view_image' | t: number: forloop.index }}"
+                {% if media.id == featured.id %}
+                  aria-current="true"
+                {% endif %}
+              >
+                {{ media.preview_image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="gallery__main" data-gallery-main>
+        {%- for media in product.media -%}
+          <div
+            class="gallery__slide{% if media.id == featured.id %} is-active{% endif %}"
+            data-media-id="{{ media.id }}"
+          >
+            {%- case media.media_type -%}
+              {%- when 'image' -%}
+                {%- if forloop.first -%}{%- assign eager = true -%}{%- else -%}{%- assign eager = false -%}{%- endif -%}
+                {% render 'responsive-image',
+                  image: media,
+                  sizes: '(min-width: 990px) 44vw, 100vw',
+                  eager: eager,
+                  max_width: 2000
+                %}
+              {%- when 'video' -%}
+                {{ media | video_tag: controls: true, playsinline: true, preload: 'metadata' }}
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag }}
+              {%- else -%}
+                {{ media | media_tag }}
+            {%- endcase -%}
+          </div>
+        {%- else -%}
+          <div class="gallery__slide is-active">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        {%- endfor -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="gallery__dots" aria-hidden="true" data-gallery-dots>
+          {%- for media in product.media -%}
+            <span{% if media.id == featured.id %} class="is-active"{% endif %} data-dot="{{ media.id }}"></span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      {%- assign specs_rendered = false -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'kicker' -%}
+            {%- liquid
+              assign kicker = block.settings.text
+              if kicker == blank
+                assign craft = product.metafields.custom.craft.value
+                assign kicker = craft | default: product.type
+                if crumb_collection
+                  if kicker != blank
+                    assign kicker = kicker | append: ' · ' | append: crumb_collection.title
+                  else
+                    assign kicker = crumb_collection.title
+                  endif
+                endif
+              endif
+            -%}
+            {%- if kicker != blank -%}
+              <p class="kicker" {{ block.shopify_attributes }}>{{ kicker | upcase }}</p>
+            {%- endif -%}
+
+          {%- when 'title' -%}
+            <div class="product__title-row" {{ block.shopify_attributes }}>
+              <h1 class="product__title">{{ product.title }}</h1>
+              {% render 'wishlist-button', handle: product.handle, class: 'product__wish' %}
+            </div>
+
+          {%- when 'rating' -%}
+            {%- assign rating = product.metafields.reviews.rating.value -%}
+            {%- assign rating_count = product.metafields.reviews.rating_count.value -%}
+            {%- if rating != blank -%}
+              {%- assign rounded = rating.rating | round -%}
+              <p class="product__rating" {{ block.shopify_attributes }}>
+                <span class="stars stars--inline" aria-hidden="true">
+                  {%- for i in (1..5) -%}{%- if i <= rounded -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}
+                </span>
+                {{ 'products.rating' | t: rating: rating.rating, count: rating_count }}
+              </p>
+            {%- endif -%}
+
+          {%- when 'price' -%}
+            <div class="product__price" data-product-price {{ block.shopify_attributes }}>
+              {% render 'price', variant: current_variant, large: true %}
+            </div>
+
+          {%- when 'description' -%}
+            {%- if product.description != blank -%}
+              <div class="product__desc rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
+            {%- endif -%}
+
+          {%- when 'buy_buttons' -%}
+            <div class="product__form" {{ block.shopify_attributes }}>
+              {%- unless product.has_only_default_variant -%}
+                <div class="variant-picker" data-variant-picker>
+                  {%- for option in product.options_with_values -%}
+                    {%- assign option_index = forloop.index0 -%}
+                    <fieldset class="variant-picker__option">
+                      <legend class="variant-picker__label">
+                        <span>{{ option.name }}</span>
+                        {%- liquid
+                          assign option_name = option.name | downcase
+                          assign is_size = false
+                          if option_name contains 'size' or option_name contains 'length'
+                            assign is_size = true
+                          endif
+                        -%}
+                        {%- if is_size and is_bangle -%}
+                          <button type="button" class="variant-picker__guide" data-size-guide-open aria-controls="SizeGuide-{{ section.id }}">
+                            {{- 'products.size_guide' | t -}}
+                          </button>
+                        {%- elsif is_size and block.settings.size_guide_page != blank -%}
+                          <a href="{{ block.settings.size_guide_page.url }}" class="variant-picker__guide">{{ 'products.size_guide' | t }}</a>
+                        {%- endif -%}
+                      </legend>
+                      <div class="pills">
+                        {%- for value in option.values -%}
+                          <label class="pill-option{% unless value.available %} is-unavailable{% endunless %}">
+                            <input
+                              type="radio"
+                              class="visually-hidden"
+                              name="option-{{ section.id }}-{{ option_index }}"
+                              value="{{ value | escape }}"
+                              data-option-index="{{ option_index }}"
+                              {% if value.selected %}
+                                checked
+                              {% endif %}
+                            >
+                            <span>{{ value }}</span>
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {%- endfor -%}
+                  <script type="application/json" data-variants>
+                    {{ product.variants | json }}
+                  </script>
+                </div>
+              {%- endunless -%}
+
+              {%- form 'product', product, id: product_form_id, class: 'buy', data-product-form: '', novalidate: 'novalidate' -%}
+                <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                <div class="buy__row">
+                  {%- if block.settings.show_quantity -%}
+                    <div class="qty" data-qty>
+                      <button type="button" data-qty-minus aria-label="{{ 'products.decrease' | t }}">−</button>
+                      <label class="visually-hidden" for="Quantity-{{ section.id }}">{{ 'products.quantity' | t }}</label>
+                      <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric">
+                      <button type="button" data-qty-plus aria-label="{{ 'products.increase' | t }}">+</button>
+                    </div>
+                  {%- endif -%}
+                  <button
+                    type="submit"
+                    name="add"
+                    class="button button--accent buy__add"
+                    data-add-button
+                    {% unless current_variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {%- if current_variant.available -%}
+                      {{- 'products.add_to_bag' | t -}}
+                    {%- else -%}
+                      {{- 'products.sold_out' | t -}}
+                    {%- endif -%}
+                  </button>
+                  {%- if block.settings.show_buy_now -%}
+                    <button
+                      type="submit"
+                      name="checkout"
+                      class="button button--outline buy__now"
+                      data-buy-now
+                      {% unless current_variant.available %}
+                        disabled
+                      {% endunless %}
+                    >
+                      {{- 'products.buy_now' | t -}}
+                    </button>
+                  {%- endif -%}
+                </div>
+                <p class="buy__error" role="alert" hidden data-form-error></p>
+              {%- endform -%}
+
+              {%- if block.settings.show_notify -%}
+                {%- form 'customer', id: 'NotifyForm', class: 'notify', data-notify: '' -%}
+                  {%- if form.posted_successfully? -%}
+                    <p class="notify__done" data-notify-done>{{ 'products.notify.done' | t }}</p>
+                  {%- else -%}
+                    <div class="notify__inner" data-notify-form {% if current_variant.available %}hidden{% endif %}>
+                      <p class="notify__title">{{ 'products.notify.title' | t }}</p>
+                      <p class="notify__text">{{ 'products.notify.text' | t }}</p>
+                      <input type="hidden" name="contact[tags]" value="back-in-stock,notify-{{ product.handle }}" data-notify-tags data-handle="{{ product.handle }}">
+                      <div class="notify__row">
+                        <label class="visually-hidden" for="NotifyEmail-{{ section.id }}">{{ 'newsletter.email' | t }}</label>
+                        <input id="NotifyEmail-{{ section.id }}" type="email" name="contact[email]" placeholder="{{ 'newsletter.email' | t }}" autocomplete="email" required>
+                        <button type="submit" class="button button--dark">{{ 'products.notify.button' | t }}</button>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endform -%}
+              {%- endif -%}
+
+              {%- if is_bangle -%}
+                {% render 'bangle-size-guide', id: section.id %}
+              {%- endif -%}
+            </div>
+
+          {%- when 'delivery' -%}
+            {%- if block.settings.text != blank -%}
+              <div class="delivery-note" {{ block.shopify_attributes }}>
+                <span>{{ block.settings.text }}</span>
+                {%- if block.settings.link_label != blank -%}
+                  <a href="{{ block.settings.link_url | default: '#' }}" class="text-link">{{ block.settings.link_label }}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+          {%- when 'spec' -%}
+            {%- comment -%} All detail rows render together as one list, at the first row's position. {%- endcomment -%}
+            {%- unless specs_rendered -%}
+              {%- assign specs_rendered = true -%}
+              <dl class="spec-list spec-list--top">
+                {%- for spec in section.blocks -%}
+                  {%- if spec.type == 'spec' -%}
+                    {%- liquid
+                      assign spec_value = spec.settings.value
+                      if spec_value == blank and spec.settings.metafield contains '.'
+                        assign mf = spec.settings.metafield | split: '.'
+                        assign spec_value = product.metafields[mf[0]][mf[1]].value
+                      endif
+                      if spec_value == blank
+                        assign spec_value = spec.settings.fallback
+                      endif
+                    -%}
+                    {%- if spec_value != blank -%}
+                      <div class="spec-list__row" {{ spec.shopify_attributes }}>
+                        <dt>{{ spec.settings.label }}</dt>
+                        <dd>{{ spec_value | newline_to_br }}</dd>
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </dl>
+            {%- endunless -%}
+
+          {%- when 'custom_liquid' -%}
+            <div {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="sticky-buy" data-sticky-buy aria-hidden="true">
+    <div class="sticky-buy__info">
+      <p class="sticky-buy__title">{{ product.title | escape }}</p>
+      <p class="sticky-buy__price" data-sticky-price>{{ current_variant.price | money_without_trailing_zeros }}</p>
+    </div>
+    <button
+      type="submit"
+      form="{{ product_form_id }}"
+      class="button button--accent"
+      tabindex="-1"
+      data-sticky-add
+      {% unless current_variant.available %}
+        disabled
+      {% endunless %}
+    >
+      {%- if current_variant.available -%}
+        {{- 'products.add_to_bag' | t -}}
+      {%- else -%}
+        {{- 'products.sold_out' | t -}}
+      {%- endif -%}
+    </button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "kicker",
+      "name": "Kicker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "info": "Leave empty to show the craft metafield (custom.craft) or product type, followed by the collection."
+        }
+      ]
+    },
+    { "type": "title", "name": "Title", "limit": 1, "settings": [] },
+    {
+      "type": "rating",
+      "name": "Rating",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Shows stars from a reviews app (product metafields reviews.rating and reviews.rating_count)." }
+      ]
+    },
+    { "type": "price", "name": "Price", "limit": 1, "settings": [] },
+    { "type": "description", "name": "Description", "limit": 1, "settings": [] },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "show_quantity", "label": "Show quantity selector", "default": true },
+        { "type": "checkbox", "id": "show_buy_now", "label": "Show Buy now button", "default": true },
+        { "type": "page", "id": "size_guide_page", "label": "Size guide page", "info": "For non-bangle sizes. Bangles always get the built-in bangle size guide." },
+        { "type": "checkbox", "id": "show_notify", "label": "Show Notify me when an option is sold out", "default": true }
+      ]
+    },
+    {
+      "type": "delivery",
+      "name": "Delivery note",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Dispatched in 24 hours · arrives in 3–7 days · COD available" },
+        { "type": "text", "id": "link_label", "label": "Link label" },
+        { "type": "url", "id": "link_url", "label": "Link" }
+      ]
+    },
+    {
+      "type": "spec",
+      "name": "Detail row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Materials" },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "info": "Connect a product metafield with the dynamic source button so each product shows its own value."
+        },
+        {
+          "type": "text",
+          "id": "metafield",
+          "label": "Or read a product field",
+          "info": "namespace.key, e.g. custom.care. Use this for multi-line fields."
+        },
+        {
+          "type": "textarea",
+          "id": "fallback",
+          "label": "Standard text",
+          "info": "Shown when the product has no value of its own. Leave empty to hide the row instead."
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom liquid",
+      "settings": [{ "type": "liquid", "id": "custom_liquid", "label": "Liquid" }]
+    }
+  ]
+}
+{% endschema %}

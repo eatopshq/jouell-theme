@@ -1,0 +1,40 @@
+<div class="section-pad-top">
+  <div class="page-width">
+    <div class="stats-row">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <p class="stats-row__value">{{ block.settings.value }}</p>
+          <p class="stats-row__label">{{ block.settings.label }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Numbers row",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Number",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Number", "default": "2012" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Fashionpur India founded" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Numbers row",
+      "blocks": [
+        { "type": "stat" },
+        { "type": "stat", "settings": { "value": "3–7", "label": "Days to most pincodes" } },
+        { "type": "stat", "settings": { "value": "7", "label": "Day exchange on every order" } },
+        { "type": "stat", "settings": { "value": "₹840", "label": "Where the collection starts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

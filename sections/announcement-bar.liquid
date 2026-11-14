@@ -1,0 +1,35 @@
+<div class="announcement">
+  <div class="page-width announcement__inner">
+    <span class="announcement__side">{{ section.settings.left_text }}</span>
+    <span class="announcement__center">
+      {%- if section.settings.center_link != blank -%}
+        <a href="{{ section.settings.center_link }}">{{ section.settings.center_text }}</a>
+      {%- else -%}
+        {{ section.settings.center_text }}
+      {%- endif -%}
+    </span>
+    <span class="announcement__side announcement__side--right">
+      {%- if section.settings.right_link != blank -%}
+        <a href="{{ section.settings.right_link }}">{{ section.settings.right_text }}</a>
+      {%- else -%}
+        {{ section.settings.right_text }}
+      {%- endif -%}
+    </span>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "class": "section-announcement",
+  "settings": [
+    { "type": "text", "id": "left_text", "label": "Left text", "default": "7 days a week, 9 am – 7 pm" },
+    { "type": "text", "id": "center_text", "label": "Centre text", "default": "FREE SHIPPING OVER ₹1,499 · COD AVAILABLE" },
+    { "type": "url", "id": "center_link", "label": "Centre link" },
+    { "type": "text", "id": "right_text", "label": "Right text", "default": "+91 99587 08555" },
+    { "type": "url", "id": "right_link", "label": "Right link", "info": "e.g. tel:+919958708555" }
+  ],
+  "presets": [{ "name": "Announcement bar" }],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

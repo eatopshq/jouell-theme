@@ -1,0 +1,37 @@
+{%- liquid
+  assign s = section.settings
+  assign heading = s.heading | default: page.title
+-%}
+
+<div class="page-hero">
+  <div class="page-width page-hero__inner">
+    <div>
+      {%- if s.kicker != blank -%}<p class="kicker">{{ s.kicker }}</p>{%- endif -%}
+      <h1 class="display">{{ heading | newline_to_br }}</h1>
+    </div>
+    {%- if s.text != blank -%}<div class="page-hero__text rte">{{ s.text }}</div>{%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page heading",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "ABOUT JOUELL" },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Timeless elegance, honestly made",
+      "info": "Leave empty to use the page title."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro",
+      "default": "<p>Handcrafted fashion jewellery where quality, style and affordability come together — so you can celebrate your own sparkle without keeping it in a locker.</p>"
+    }
+  ],
+  "presets": [{ "name": "Page heading" }]
+}
+{% endschema %}

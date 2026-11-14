@@ -1,0 +1,73 @@
+{%- liquid
+  assign s = section.settings
+  # Necklace sets (or whichever type is set below) are paired with a chosen collection, e.g. Earrings.
+  # Everything else uses Shopify's complementary products, loaded after the page.
+  assign use_pairing = false
+  if product and s.pair_collection != blank and s.pair_for_type != blank
+    assign pair_type = s.pair_for_type | downcase
+    assign this_type = product.type | downcase
+    if this_type contains pair_type
+      assign use_pairing = true
+    endif
+  endif
+  assign shown = 0
+-%}
+
+{%- if use_pairing -%}
+  {%- if s.pair_collection.products_count > 0 -%}
+    <div class="section-pad-top">
+      <div class="page-width">
+        {%- if s.heading != blank -%}<h2 class="h3 recommendations__heading">{{ s.heading }}</h2>{%- endif -%}
+        <div class="product-grid mobile-scroll" style="--cols: 4; --m-col: 64%;" data-mobile-scroll>
+          {%- for item in s.pair_collection.products -%}
+            {%- if item.id == product.id -%}{%- continue -%}{%- endif -%}
+            {%- if shown >= s.limit -%}{%- break -%}{%- endif -%}
+            {% render 'product-card', product: item, show_badge: false %}
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- else -%}
+  <div
+    class="section-pad-top"
+    data-recommendations
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ s.limit }}&intent={{ s.intent }}"
+  >
+    {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+      <div class="page-width">
+        {%- if s.heading != blank -%}<h2 class="h3 recommendations__heading">{{ s.heading }}</h2>{%- endif -%}
+        <div class="product-grid mobile-scroll" style="--cols: 4; --m-col: 64%;" data-mobile-scroll>
+          {%- for item in recommendations.products -%}
+            {% render 'product-card', product: item, show_badge: false %}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Pair it with",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pair it with" },
+    {
+      "type": "select",
+      "id": "intent",
+      "label": "Products to show",
+      "options": [
+        { "value": "complementary", "label": "Complementary (set in Search & Discovery app)" },
+        { "value": "related", "label": "Related (automatic)" }
+      ],
+      "default": "complementary"
+    },
+    { "type": "range", "id": "limit", "label": "Number of products", "min": 2, "max": 8, "step": 1, "default": 4 },
+    { "type": "header", "content": "Pairing for one product type" },
+    { "type": "text", "id": "pair_for_type", "label": "Product type", "default": "Necklace Set", "info": "Products of this type show the collection below instead, e.g. matching earrings." },
+    { "type": "collection", "id": "pair_collection", "label": "Collection to pair with" }
+  ],
+  "presets": [{ "name": "Pair it with" }]
+}
+{% endschema %}

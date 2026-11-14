@@ -1,0 +1,132 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign is_home = false
+  if request.page_type == 'index'
+    assign is_home = true
+  endif
+-%}
+
+<header class="header{% if section.settings.sticky %} header--sticky{% endif %}" data-header>
+  <div class="page-width header__inner">
+    <button
+      type="button"
+      class="header__burger"
+      aria-controls="MobileNav"
+      aria-expanded="false"
+      data-nav-toggle
+    >
+      <span class="visually-hidden">{{ 'header.menu' | t }}</span>
+      <span class="burger" aria-hidden="true"><span></span><span></span></span>
+    </button>
+
+    <nav class="header__nav" aria-label="{{ 'header.main_navigation' | t }}">
+      <ul class="nav" role="list">
+        {%- for link in menu.links -%}
+          <li class="nav__item{% if link.links.size > 0 %} nav__item--parent{% endif %}">
+            <a
+              href="{{ link.url }}"
+              class="nav__link{% if link.active or link.child_active %} is-active{% endif %}"
+              {% if link.current %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- link.title -}}
+            </a>
+            {%- if link.links.size > 0 -%}
+              <div class="nav__dropdown">
+                <ul role="list">
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    {% render 'wordmark', is_h1: is_home, class: 'header__wordmark' %}
+
+    <div class="header__tools">
+      <button type="button" class="header__tool" data-search-toggle aria-controls="SearchPanel" aria-expanded="false">
+        {{- 'header.search' | t -}}
+      </button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="header__tool header__tool--account" href="{{ routes.account_url }}">
+          {{- 'header.account' | t -}}
+        </a>
+      {%- endif -%}
+      {%- if settings.wishlist_enabled -%}
+        <a class="header__tool header__tool--wish" href="{{ settings.wishlist_url | default: '/pages/wishlist' }}" aria-label="{{ 'wishlist.title' | t }}">
+          <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <span class="header__count" data-wish-count hidden></span>
+        </a>
+      {%- endif -%}
+      <a class="header__tool" href="{{ routes.cart_url }}" data-cart-toggle>
+        {{- 'header.bag' | t -}}
+        <span class="header__count"
+          >(<span data-cart-count>{{ cart.item_count }}</span>)</span
+        >
+      </a>
+    </div>
+  </div>
+
+  <div class="search-panel" id="SearchPanel" hidden data-search-panel>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="page-width search-panel__form">
+      <label class="visually-hidden" for="HeaderSearch">{{ 'search.placeholder' | t }}</label>
+      <input
+        id="HeaderSearch"
+        type="search"
+        name="q"
+        placeholder="{{ 'search.placeholder' | t }}"
+        autocomplete="off"
+      >
+      <input type="hidden" name="type" value="product">
+      <button type="submit" class="text-button">{{ 'search.submit' | t }}</button>
+    </form>
+  </div>
+
+  <div class="mobile-nav" id="MobileNav" hidden data-mobile-nav>
+    <ul role="list" class="mobile-nav__list">
+      {%- for link in menu.links -%}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- if link.links.size > 0 -%}
+            <ul role="list" class="mobile-nav__sub">
+              {%- for child in link.links -%}
+                <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <li><a href="{{ routes.account_url }}">{{ 'header.account' | t }}</a></li>
+      {%- endif -%}
+    </ul>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Design uses: Collections, Necklace Sets, Bangles, Earrings, About. Add child links for a dropdown."
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Stick to top when scrolling",
+      "default": true
+    }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

@@ -1,0 +1,196 @@
+{%- liquid
+  assign s = section.settings
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign active_filter_count = 0
+  for filter in collection.filters
+    assign active_filter_count = active_filter_count | plus: filter.active_values.size
+    if filter.type == 'price_range'
+      if filter.min_value.value != null or filter.max_value.value != null
+        assign active_filter_count = active_filter_count | plus: 1
+      endif
+    endif
+  endfor
+-%}
+
+<div class="collection" data-collection data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <nav class="breadcrumb" aria-label="{{ 'general.breadcrumb' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a> /
+      <a href="{{ routes.collections_url }}">{{ 'collections.title' | t }}</a> /
+      <span aria-current="page">{{ collection.title }}</span>
+    </nav>
+
+    <div class="collection__head">
+      <div>
+        {%- if s.kicker != blank -%}<p class="kicker">{{ s.kicker }}</p>{%- endif -%}
+        <h1 class="display display--md">{{ collection.title }}</h1>
+        {%- if collection.description != blank -%}
+          <div class="collection__desc rte">{{ collection.description }}</div>
+        {%- endif -%}
+      </div>
+      <div class="collection__tools">
+        <span class="collection__count" data-collection-count>
+          {{- 'collections.pieces' | t: count: collection.products_count -}}
+        </span>
+        {%- if collection.filters.size > 0 -%}
+          <button type="button" class="collection__filter-toggle" data-filter-toggle aria-controls="CollectionFilters" aria-expanded="false">
+            {{- 'collections.filter' | t -}}
+            {%- if active_filter_count > 0 %} ({{ active_filter_count }}){% endif -%}
+          </button>
+        {%- endif -%}
+        <label class="sort">
+          <span>{{ 'collections.sort' | t }}</span>
+          <select name="sort_by" form="CollectionFilterForm" data-sort-select>
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="collection__body{% if collection.filters.size == 0 %} collection__body--nofilters{% endif %}">
+      {%- if collection.filters.size > 0 -%}
+        <aside class="filters" id="CollectionFilters" data-filters>
+          <form id="CollectionFilterForm" data-filter-form>
+            <div class="filters__head">
+              <p class="filters__title">{{ 'collections.filter' | t | upcase }}</p>
+              {%- if active_filter_count > 0 -%}
+                <a class="filters__clear" href="{{ collection.url }}?sort_by={{ sort_by }}" data-filter-link>{{ 'collections.clear_all' | t }}</a>
+              {%- endif -%}
+            </div>
+
+            {%- for filter in collection.filters -%}
+              <fieldset class="filter">
+                <legend class="filter__label">{{ filter.label }}</legend>
+                {%- case filter.type -%}
+                  {%- when 'price_range' -%}
+                    <div class="filter__price">
+                      <label>
+                        <span class="visually-hidden">{{ 'collections.price_from' | t }}</span>
+                        <input
+                          type="number"
+                          name="{{ filter.min_value.param_name }}"
+                          {% if filter.min_value.value %}
+                            value="{{ filter.min_value.value | money_without_currency | remove: ',' }}"
+                          {% endif %}
+                          placeholder="{{ 'collections.price_from' | t }}"
+                          min="0"
+                          inputmode="numeric"
+                        >
+                      </label>
+                      <span aria-hidden="true">–</span>
+                      <label>
+                        <span class="visually-hidden">{{ 'collections.price_to' | t }}</span>
+                        <input
+                          type="number"
+                          name="{{ filter.max_value.param_name }}"
+                          {% if filter.max_value.value %}
+                            value="{{ filter.max_value.value | money_without_currency | remove: ',' }}"
+                          {% endif %}
+                          placeholder="{{ filter.range_max | money_without_currency | remove: ',' }}"
+                          min="0"
+                          inputmode="numeric"
+                        >
+                      </label>
+                    </div>
+                  {%- else -%}
+                    {%- assign is_swatch = false -%}
+                    {%- if filter.presentation == 'swatch' -%}{%- assign is_swatch = true -%}{%- endif -%}
+                    <ul role="list" class="filter__values{% if is_swatch %} filter__values--swatch{% endif %}">
+                      {%- for value in filter.values -%}
+                        <li>
+                          <label
+                            class="filter__value{% if value.active %} is-active{% endif %}{% if value.count == 0 and value.active == false %} is-disabled{% endif %}"
+                            {% if is_swatch %}
+                              title="{{ value.label | escape }}"
+                            {% endif %}
+                          >
+                            <input
+                              type="checkbox"
+                              class="visually-hidden"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              {% if value.active %}
+                                checked
+                              {% endif %}
+                              {% if value.count == 0 and value.active == false %}
+                                disabled
+                              {% endif %}
+                            >
+                            {%- if is_swatch -%}
+                              <span
+                                class="swatch"
+                                style="--swatch: {{ value.swatch.color | default: '#E6E1D8' }};{% if value.swatch.image %} background-image: url({{ value.swatch.image | image_url: width: 60 }});{% endif %}"
+                              ></span>
+                              <span class="visually-hidden">{{ value.label }}</span>
+                            {%- else -%}
+                              {{ value.label }}
+                            {%- endif -%}
+                          </label>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                {%- endcase -%}
+              </fieldset>
+            {%- endfor -%}
+
+            <noscript><button type="submit" class="button button--dark">{{ 'collections.apply' | t }}</button></noscript>
+          </form>
+        </aside>
+      {%- endif -%}
+
+      <div class="collection__results" data-collection-results>
+        {%- paginate collection.products by s.per_page -%}
+          {%- if collection.products.size == 0 -%}
+            <div class="empty-state">
+              <p>{{ 'collections.empty' | t }}</p>
+              {%- if active_filter_count > 0 -%}
+                <a class="text-link" href="{{ collection.url }}">{{ 'collections.clear_all' | t }}</a>
+              {%- endif -%}
+            </div>
+          {%- else -%}
+            <div class="product-grid product-grid--collection" style="--cols: {{ s.columns }};" data-product-grid>
+              {%- for product in collection.products -%}
+                {% render 'product-card',
+                  product: product,
+                  show_badge: s.show_badge,
+                  sizes: '(min-width: 990px) 28vw, 50vw'
+                %}
+              {%- endfor -%}
+            </div>
+
+            {%- if paginate.next -%}
+              {%- liquid
+                assign shown = paginate.current_page | times: paginate.page_size
+                assign remaining = paginate.items | minus: shown
+                assign next_count = remaining | at_most: paginate.page_size
+              -%}
+              <div class="load-more" data-load-more-wrap>
+                <a class="text-link text-link--lg" href="{{ paginate.next.url }}" data-load-more>
+                  {{- 'collections.show_more' | t: count: next_count, total: paginate.items -}}
+                </a>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "COLLECTION" },
+    { "type": "range", "id": "per_page", "label": "Products per page", "min": 8, "max": 48, "step": 4, "default": 12 },
+    { "type": "range", "id": "columns", "label": "Columns (desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "checkbox", "id": "show_badge", "label": "Show weight · style label", "default": false },
+    {
+      "type": "paragraph",
+      "content": "Filters come from the Shopify Search & Discovery app. Add filters for Work (craft), Style, Price and Colour (as swatches) to match the design."
+    }
+  ]
+}
+{% endschema %}

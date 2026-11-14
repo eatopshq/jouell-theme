@@ -1,0 +1,47 @@
+<div class="page-width cart-page" data-cart-page>
+  <nav class="breadcrumb" aria-label="{{ 'general.breadcrumb' | t }}">
+    <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a> /
+    <span aria-current="page">{{ 'cart.title' | t }}</span>
+  </nav>
+  <h1 class="display display--md">{{ 'cart.title' | t }}</h1>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="empty-state empty-state--page">
+      <p>{{ 'cart.empty' | t }}</p>
+      <a class="button button--dark" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+    </div>
+  {%- else -%}
+    <div class="cart-page__grid">
+      <div>{% render 'cart-items' %}</div>
+      <form action="{{ routes.cart_url }}" method="post" class="cart-summary cart-summary--page">
+        {%- if section.settings.show_note -%}
+          <label class="cart-summary__label" for="CartNote">{{ 'cart.note' | t }}</label>
+          <textarea id="CartNote" name="note" rows="3" placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+        {%- endif -%}
+        <div class="cart-summary__row">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          <span>{{ cart.total_price | money_without_trailing_zeros }}</span>
+        </div>
+        <p class="cart-summary__note">{{ 'cart.taxes_shipping' | t }}</p>
+        <button type="submit" name="checkout" class="button button--accent button--block">{{ 'cart.checkout' | t }}</button>
+        {%- if settings.cart_note_text != blank -%}
+          <p class="cart-summary__note">{{ settings.cart_note_text }}</p>
+        {%- endif -%}
+      </form>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_note",
+      "label": "Show gift message box",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
