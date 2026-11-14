@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% render 'meta-tags' %}
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif -%}
+    {% render 'fonts' %}
+
+    {% render 'css-variables' %}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% render 'cart-drawer' %}
+
+    <script>
+      window.theme = {
+        routes: {
+          cart: {{ routes.cart_url | json }},
+          cartAdd: {{ routes.cart_add_url | json }},
+          cartChange: {{ routes.cart_change_url | json }},
+          root: {{ routes.root_url | json }}
+        },
+        moneyFormat: {{ shop.money_format | json }},
+        cartType: {{ settings.cart_type | json }},
+        strings: {
+          adding: {{ 'products.adding' | t | json }},
+          soldOut: {{ 'products.sold_out' | t | json }},
+          addToBag: {{ 'products.add_to_bag' | t | json }},
+          error: {{ 'general.error' | t | json }},
+          copied: {{ 'popups.signup.copied' | t | json }},
+          wishSave: {{ 'wishlist.save' | t | json }},
+          wishSaved: {{ 'wishlist.saved' | t | json }},
+          wishRemove: {{ 'wishlist.remove' | t | json }},
+          soldOutLabel: {{ 'products.sold_out' | t | json }},
+          savePercent: {{ 'products.save_percent' | t: percent: 'PERCENT' | json }},
+          more: {{ 'popups.exit.more' | t | json }}
+        }
+      };
+    </script>
+  </body>
+</html>
