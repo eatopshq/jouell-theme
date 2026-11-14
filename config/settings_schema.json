@@ -1,0 +1,254 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Jouell",
+    "theme_version": "1.0.0",
+    "theme_author": "Jouell",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "select",
+        "id": "logo_style",
+        "label": "Logo",
+        "options": [
+          {
+            "value": "script",
+            "label": "Jouell script logo"
+          },
+          {
+            "value": "text",
+            "label": "Text wordmark"
+          }
+        ],
+        "default": "script"
+      },
+      {
+        "type": "text",
+        "id": "wordmark",
+        "label": "Wordmark text",
+        "default": "JOUELL",
+        "info": "Used when Logo is set to Text wordmark."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Custom logo image (optional)",
+        "info": "Replaces the built-in logo in the header. Use a transparent PNG."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_footer",
+        "label": "Custom footer logo (optional)",
+        "info": "Light version for the dark footer."
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width (header)",
+        "min": 60,
+        "max": 260,
+        "step": 5,
+        "unit": "px",
+        "default": 115
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_ivory",
+        "label": "Background (ivory)",
+        "default": "#FCFBF8"
+      },
+      {
+        "type": "color",
+        "id": "color_sand",
+        "label": "Soft panel (sand)",
+        "default": "#F3F0E9"
+      },
+      {
+        "type": "color",
+        "id": "color_stone",
+        "label": "Image placeholder (stone)",
+        "default": "#E6E1D8"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Hairlines",
+        "default": "#E6E1D8"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink (headings, buttons)",
+        "default": "#1A1714"
+      },
+      {
+        "type": "color",
+        "id": "color_body",
+        "label": "Body text",
+        "default": "#57514A"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#78716A"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold (labels)",
+        "default": "#8A6220"
+      },
+      {
+        "type": "color",
+        "id": "color_gold_light",
+        "label": "Gold (on dark)",
+        "default": "#C79A4E"
+      },
+      {
+        "type": "color",
+        "id": "color_champagne",
+        "label": "Champagne (hero accents)",
+        "default": "#E7C98A"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (Add to bag, savings)",
+        "default": "#1F3D2B"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Maximum page width",
+        "min": 1100,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1280
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "card_show_compare_price",
+        "label": "Show compare-at (MRP) price",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_badge",
+        "label": "Show weight · style label",
+        "default": true,
+        "info": "Uses product metafields custom.weight_grams and custom.style, e.g. \"96 G · NECKLACE\"."
+      },
+      {
+        "type": "text",
+        "id": "card_note",
+        "label": "Note beside label",
+        "info": "Shown next to the label on products that have one. Leave empty to hide."
+      },
+      {
+        "type": "checkbox",
+        "id": "card_hover_image",
+        "label": "Show second image on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "card_show_flags",
+        "label": "Show New arrival and Bestseller labels",
+        "default": true,
+        "info": "Shown on the image of products tagged new-arrival or bestseller. One label per product; Sold out takes priority."
+      }
+    ]
+  },
+  {
+    "name": "Wishlist",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "wishlist_enabled",
+        "label": "Show wishlist hearts",
+        "default": true,
+        "info": "Saved on the shopper's device. Needs a page using the wishlist template."
+      },
+      {
+        "type": "url",
+        "id": "wishlist_url",
+        "label": "Wishlist page",
+        "info": "Leave empty to use /pages/wishlist"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "After adding to bag",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Open the bag drawer"
+          },
+          {
+            "value": "page",
+            "label": "Go to the cart page"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "text",
+        "id": "cart_note_text",
+        "label": "Message under checkout button",
+        "default": "Gift box, pouch and card included. Cash on delivery available."
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_whatsapp",
+        "label": "WhatsApp link",
+        "info": "e.g. https://wa.me/919958708555"
+      }
+    ]
+  }
+]
