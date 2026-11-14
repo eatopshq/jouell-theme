@@ -1,0 +1,12 @@
+{% doc %}
+  Five-star rating row in gold, e.g. ★★★★☆.
+
+  @param {number} count - Filled stars, 0–5
+  @param {string} [class] - Extra class
+{% enddoc %}
+
+<p class="stars {{ class }}" role="img" aria-label="{{ 'sections.testimonials.stars' | t: count: count }}">
+  {%- for i in (1..5) -%}
+    {%- if i <= count -%}★{%- else -%}☆{%- endif -%}
+  {%- endfor -%}
+</p>

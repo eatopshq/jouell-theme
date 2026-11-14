@@ -1,0 +1,22 @@
+{% style %}
+  :root {
+    --color-ink: {{ settings.color_ink }};
+    --color-ivory: {{ settings.color_ivory }};
+    --color-sand: {{ settings.color_sand }};
+    --color-stone: {{ settings.color_stone }};
+    --color-line: {{ settings.color_line }};
+    --color-body: {{ settings.color_body }};
+    --color-muted: {{ settings.color_muted }};
+    --color-gold: {{ settings.color_gold }};
+    --color-gold-light: {{ settings.color_gold_light }};
+    --color-champagne: {{ settings.color_champagne }};
+    --color-accent: {{ settings.color_accent }};
+
+    --font-display: 'Marcellus', Georgia, serif;
+    --font-body: 'Mukta', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    --page-width: {{ settings.page_width }}px;
+    --gutter: clamp(16px, 4.4vw, 56px);
+    --section-gap: clamp(48px, 6vw, 72px);
+  }
+{% endstyle %}

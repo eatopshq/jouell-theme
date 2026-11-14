@@ -1,0 +1,37 @@
+{% doc %}
+  Responsive <img> with srcset. Renders a stone-coloured placeholder
+  when no image is given.
+
+  @param {image} image - The image
+  @param {string} [sizes] - The sizes attribute, default 100vw
+  @param {string} [class] - Class for the img
+  @param {boolean} [eager] - Load eagerly (above the fold)
+  @param {string} [alt] - Alt text override
+  @param {number} [max_width] - Largest width to request, default 1600
+{% enddoc %}
+
+{%- liquid
+  assign sizes = sizes | default: '100vw'
+  assign max_width = max_width | default: 1600
+  if eager
+    assign loading = 'eager'
+  else
+    assign loading = 'lazy'
+  endif
+-%}
+
+{%- if image != blank -%}
+  {%- assign img_alt = alt | default: image.alt | escape -%}
+  {{
+    image
+    | image_url: width: max_width
+    | image_tag:
+      widths: '360, 540, 720, 900, 1100, 1400, 1600, 2000',
+      sizes: sizes,
+      loading: loading,
+      class: class,
+      alt: img_alt
+  }}
+{%- else -%}
+  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+{%- endif -%}

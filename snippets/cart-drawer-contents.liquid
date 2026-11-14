@@ -1,0 +1,22 @@
+{%- if cart.item_count == 0 -%}
+  <div class="empty-state">
+    <p>{{ 'cart.empty' | t }}</p>
+    <a class="text-link" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+  </div>
+{%- else -%}
+  {% render 'cart-items', compact: true %}
+  <div class="cart-summary">
+    <div class="cart-summary__row">
+      <span>{{ 'cart.subtotal' | t }}</span>
+      <span>{{ cart.total_price | money_without_trailing_zeros }}</span>
+    </div>
+    <p class="cart-summary__note">{{ 'cart.taxes_shipping' | t }}</p>
+    <form action="{{ routes.cart_url }}" method="post">
+      <button type="submit" name="checkout" class="button button--accent button--block">{{ 'cart.checkout' | t }}</button>
+    </form>
+    <a class="text-link cart-summary__link" href="{{ routes.cart_url }}">{{ 'cart.view' | t }}</a>
+    {%- if settings.cart_note_text != blank -%}
+      <p class="cart-summary__note">{{ settings.cart_note_text }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}

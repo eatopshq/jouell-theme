@@ -1,0 +1,30 @@
+{% doc %}
+  Kicker + heading row used at the top of most sections, with an optional
+  link or aside text on the right.
+
+  @param {string} [kicker] - Small uppercase gold label above the heading
+  @param {string} [heading] - Section heading
+  @param {string} [heading_tag] - Heading element, default h2
+  @param {string} [link_url] - Right-side link URL
+  @param {string} [link_label] - Right-side link label
+  @param {string} [aside] - Right-side plain text (used when no link)
+  @param {boolean} [bordered] - Draw a hairline under the row
+{% enddoc %}
+
+{%- assign heading_tag = heading_tag | default: 'h2' -%}
+
+<div class="section-heading{% if bordered %} section-heading--bordered{% endif %}">
+  <div>
+    {%- if kicker != blank -%}
+      <p class="kicker">{{ kicker }}</p>
+    {%- endif -%}
+    {%- if heading != blank -%}
+      <{{ heading_tag }} class="h2">{{ heading }}</{{ heading_tag }}>
+    {%- endif -%}
+  </div>
+  {%- if link_label != blank and link_url != blank -%}
+    <a class="text-link" href="{{ link_url }}">{{ link_label }}</a>
+  {%- elsif aside != blank -%}
+    <div class="section-heading__aside">{{ aside }}</div>
+  {%- endif -%}
+</div>

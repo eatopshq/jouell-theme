@@ -1,0 +1,38 @@
+{% doc %}
+  Bangle size guide in a dialog, opened by the Size guide button on bangle
+  product pages. Sizes follow the Indian bangle scale (inner diameter in inches).
+
+  @param {string} id - Section id, for a unique dialog id
+{% enddoc %}
+
+<dialog class="size-guide" id="SizeGuide-{{ id }}" aria-labelledby="SizeGuideTitle-{{ id }}" data-size-guide>
+  <div class="size-guide__inner">
+    <button type="button" class="popup__close" data-size-guide-close aria-label="{{ 'general.close' | t }}">×</button>
+    <h2 class="h3" id="SizeGuideTitle-{{ id }}">{{ 'size_guide.title' | t }}</h2>
+    <p class="size-guide__intro">{{ 'size_guide.intro' | t }}</p>
+
+    <table class="size-guide__table">
+      <thead>
+        <tr>
+          <th scope="col">{{ 'size_guide.size' | t }}</th>
+          <th scope="col">{{ 'size_guide.diameter' | t }}</th>
+          <th scope="col">{{ 'size_guide.circumference' | t }}</th>
+          <th scope="col">{{ 'size_guide.fits' | t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2.4</td><td>2 ¼″ · 57.2 mm</td><td>179.5 mm</td><td>{{ 'size_guide.fit_small' | t }}</td></tr>
+        <tr><td>2.6</td><td>2 ⅜″ · 60.3 mm</td><td>189.5 mm</td><td>{{ 'size_guide.fit_medium' | t }}</td></tr>
+        <tr><td>2.8</td><td>2 ½″ · 63.5 mm</td><td>199.5 mm</td><td>{{ 'size_guide.fit_large' | t }}</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="size-guide__subhead">{{ 'size_guide.measure_title' | t }}</h3>
+    <ol class="size-guide__steps">
+      <li>{{ 'size_guide.step_1' | t }}</li>
+      <li>{{ 'size_guide.step_2' | t }}</li>
+      <li>{{ 'size_guide.step_3' | t }}</li>
+    </ol>
+    <p class="size-guide__note">{{ 'size_guide.note' | t }}</p>
+  </div>
+</dialog>

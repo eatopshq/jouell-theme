@@ -1,0 +1,44 @@
+{% doc %}
+  Price with optional struck-through compare-at (MRP) price.
+
+  @param {product} [product] - Product (uses its price range)
+  @param {variant} [variant] - Variant (takes precedence over product)
+  @param {boolean} [large] - Product-page size, with "You save" line
+  @param {boolean} [hide_compare] - Never show the compare-at price
+  @param {boolean} [show_percent] - Add "Save X%" on discounted items (cards)
+{% enddoc %}
+
+{%- liquid
+  if variant
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+  else
+    assign price = product.price
+    assign compare = product.compare_at_price
+  endif
+  assign on_sale = false
+  if compare > price and hide_compare != true
+    assign on_sale = true
+    assign percent = compare | minus: price | times: 100.0 | divided_by: compare | round
+  endif
+-%}
+
+<div class="price{% if large %} price--large{% endif %}" data-price>
+  <span class="price__current">
+    {%- if variant == blank and product.price_varies -%}
+      {%- assign min_price = product.price_min | money_without_trailing_zeros -%}
+      {{ 'products.from_price' | t: price: min_price }}
+    {%- else -%}
+      {{ price | money_without_trailing_zeros }}
+    {%- endif -%}
+  </span>
+  {%- if on_sale -%}
+    <s class="price__compare"><span class="visually-hidden">{{ 'products.regular_price' | t }}</span>{{ compare | money_without_trailing_zeros }}</s>
+    {%- if large -%}
+      {%- assign saved = compare | minus: price | money_without_trailing_zeros -%}
+      <span class="price__save">{{ 'products.you_save_percent' | t: amount: saved, percent: percent }}</span>
+    {%- elsif show_percent and percent > 0 -%}
+      <span class="price__save">{{ 'products.save_percent' | t: percent: percent }}</span>
+    {%- endif -%}
+  {%- endif -%}
+</div>

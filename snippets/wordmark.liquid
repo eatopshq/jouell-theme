@@ -1,0 +1,52 @@
+{% doc %}
+  The Jouell logo, linked to the home page. Uses, in order: an uploaded
+  logo image, the built-in script logo (assets/logo-jouell-*.png), or the
+  text wordmark.
+
+  @param {string} [class] - Extra class on the link
+  @param {boolean} [is_h1] - Render inside an h1 (home page header)
+  @param {string} [tone] - 'ink' (default, on light) or 'ivory' (on dark)
+  @param {number} [width] - Logo width in px, default settings.logo_width
+{% enddoc %}
+
+{%- liquid
+  assign tone = tone | default: 'ink'
+  assign width = width | default: settings.logo_width
+  assign width_2x = width | times: 2
+  if tone == 'ivory'
+    assign uploaded = settings.logo_footer
+  else
+    assign uploaded = settings.logo
+  endif
+-%}
+
+{%- capture mark -%}
+  <a href="{{ routes.root_url }}" class="wordmark{% if uploaded != blank or settings.logo_style == 'script' %} wordmark--image{% endif %} {{ class }}">
+    {%- if uploaded != blank -%}
+      {{
+        uploaded
+        | image_url: width: width_2x
+        | image_tag: width: width, alt: shop.name, loading: 'eager', class: 'wordmark__img'
+      }}
+    {%- elsif settings.logo_style == 'script' -%}
+      {%- assign logo_file = 'logo-jouell-' | append: tone | append: '.png' -%}
+      {%- assign logo_height = width | times: 404 | divided_by: 1000 -%}
+      <img
+        src="{{ logo_file | asset_url }}"
+        alt="{{ shop.name | escape }}"
+        width="{{ width }}"
+        height="{{ logo_height }}"
+        class="wordmark__img"
+        style="--logo-width: {{ width }}px;"
+      >
+    {%- else -%}
+      {{ settings.wordmark | default: shop.name }}
+    {%- endif -%}
+  </a>
+{%- endcapture -%}
+
+{%- if is_h1 -%}
+  <h1 class="wordmark-wrap">{{ mark }}</h1>
+{%- else -%}
+  <div class="wordmark-wrap">{{ mark }}</div>
+{%- endif -%}

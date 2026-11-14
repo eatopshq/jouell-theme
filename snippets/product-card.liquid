@@ -1,0 +1,81 @@
+{% doc %}
+  Product card: image (with optional hover image), weight/style label,
+  title and price. Structure comes from white space only — no borders.
+
+  @param {product} product - The product
+  @param {string} [ratio] - Image aspect ratio, e.g. '4/5' (default) or '1/1'
+  @param {boolean} [show_badge] - Show the weight · style label
+  @param {string} [sizes] - Image sizes attribute
+{% enddoc %}
+
+{%- liquid
+  assign ratio = ratio | default: '4/5'
+  assign sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  assign weight = product.metafields.custom.weight_grams.value
+  assign style = product.metafields.custom.style.value
+  assign badge = false
+  if show_badge and settings.card_show_badge
+    if weight != blank or style != blank
+      assign badge = true
+    endif
+  endif
+  # One label at most: Sold out, else New arrival, else Bestseller (from product tags)
+  assign flag = ''
+  assign tags = product.tags | join: ',' | downcase | split: ','
+  if product.available == false
+    assign flag = 'products.sold_out' | t
+  elsif settings.card_show_flags and tags contains 'new-arrival'
+    assign flag = 'products.new_arrival' | t
+  elsif settings.card_show_flags and tags contains 'bestseller'
+    assign flag = 'products.bestseller' | t
+  endif
+  assign second_image = nil
+  if settings.card_hover_image and product.media.size > 1
+    assign second_image = product.media[1].preview_image
+  endif
+-%}
+
+<div class="card">
+  <a
+    href="{{ product.url }}"
+    class="card__media{% if second_image %} card__media--hover{% endif %}"
+    style="--ratio: {{ ratio }};"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    {%- if product.featured_media -%}
+      {% render 'responsive-image', image: product.featured_media.preview_image, sizes: sizes, max_width: 900 %}
+      {%- if second_image -%}
+        {% render 'responsive-image', image: second_image, sizes: sizes, max_width: 900, class: 'card__hover' %}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    {%- if flag != '' -%}
+      <span class="card__flag{% unless product.available %} card__flag--soldout{% endunless %}">{{ flag }}</span>
+    {%- endif -%}
+  </a>
+  {% render 'wishlist-button', handle: product.handle, class: 'card__wish' %}
+
+  {%- if badge -%}
+    <div class="card__meta">
+      <span class="label">
+        {%- if weight != blank -%}{{ weight }} G{%- endif -%}
+        {%- if weight != blank and style != blank %} · {% endif -%}
+        {%- if style != blank -%}{{ style | upcase }}{%- endif -%}
+      </span>
+      {%- if settings.card_note != blank -%}
+        <span class="card__note">{{ settings.card_note }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <h3 class="card__title">
+    <a href="{{ product.url }}">{{ product.title | escape }}</a>
+  </h3>
+  {%- if settings.card_show_compare_price -%}
+    {% render 'price', product: product, show_percent: true %}
+  {%- else -%}
+    {% render 'price', product: product, hide_compare: true %}
+  {%- endif -%}
+</div>
