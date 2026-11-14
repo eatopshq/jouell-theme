@@ -1,0 +1,191 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "home": "Home",
+    "breadcrumb": "Breadcrumb",
+    "close": "Close",
+    "error": "Something went wrong. Please try again."
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content"
+  },
+  "header": {
+    "menu": "Menu",
+    "main_navigation": "Main navigation",
+    "search": "Search",
+    "account": "Account",
+    "bag": "Bag"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search for jhumkas, chokers, bangles…",
+    "submit": "Search",
+    "no_results_html": "Nothing found for “{{ terms }}”. Try a style like choker or jhumka, or a craft like kundan.",
+    "results_for_html": "{{ count }} results for “{{ terms }}”"
+  },
+  "collections": {
+    "title": "Collections",
+    "pieces": {
+      "one": "{{ count }} piece",
+      "other": "{{ count }} pieces"
+    },
+    "filter": "Filter",
+    "sort": "Sort:",
+    "clear_all": "Clear all",
+    "price_from": "From ₹",
+    "price_to": "To ₹",
+    "apply": "Apply",
+    "empty": "Nothing matches these filters right now. Try removing one.",
+    "show_more": "Show {{ count }} more ({{ total }} in all)"
+  },
+  "products": {
+    "add_to_bag": "Add to bag",
+    "adding": "Adding…",
+    "buy_now": "Buy it now",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "from_price": "From {{ price }}",
+    "regular_price": "Regular price",
+    "you_save": "You save {{ amount }}",
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "size_guide": "Size guide",
+    "view_image": "View image {{ number }}",
+    "rating": "{{ rating }} · {{ count }} reviews",
+    "average_rating": "{{ rating }} average · verified purchases",
+    "new_arrival": "New arrival",
+    "bestseller": "Bestseller",
+    "save_percent": "Save {{ percent }}%",
+    "you_save_percent": "You save {{ amount }} ({{ percent }}%)",
+    "see_all_in": "See all {{ name }}",
+    "notify": {
+      "title": "Sold out in this option",
+      "text": "Leave your email and we will let you know as soon as it is back.",
+      "button": "Notify me",
+      "done": "Thank you! We will email you when it is back in stock."
+    }
+  },
+  "sections": {
+    "wedding_week": {
+      "day": "Day {{ number }}",
+      "of": "of",
+      "previous": "Previous {{ day }} set",
+      "next": "Next {{ day }} set",
+      "pick_products": "Choose up to three products for this function in the theme editor."
+    },
+    "featured_collection": {
+      "placeholder_title": "Choose a collection in the theme editor"
+    },
+    "craft": {
+      "starting_price": "Starting price",
+      "in_collection": "In the collection",
+      "wears_best": "Wears best at",
+      "shop": "Shop {{ name }}",
+      "viewing": "Viewing"
+    },
+    "testimonials": {
+      "stars": "{{ count }} out of 5 stars"
+    },
+    "reels": {
+      "previous": "Previous",
+      "next": "Next",
+      "open": "Open on Instagram"
+    },
+    "hero": {
+      "label": "Featured looks",
+      "choose": "Choose a slide",
+      "go_to": "Go to slide {{ number }}",
+      "previous": "Previous slide",
+      "next": "Next slide"
+    }
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "Your bag is empty. Let us fix that.",
+    "continue": "Start shopping",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "taxes_shipping": "Taxes included. Shipping is worked out at checkout.",
+    "checkout": "Checkout",
+    "view": "View bag",
+    "note": "Gift message",
+    "note_placeholder": "We will write this by hand on the card in the box"
+  },
+  "newsletter": {
+    "email": "Email address",
+    "subscribe": "Subscribe",
+    "success": "Thank you! We will be in touch before the next festive season."
+  },
+  "blog": {
+    "kicker": "JOURNAL"
+  },
+  "not_found": {
+    "title": "We could not find that page",
+    "text": "The link may be old, or the set may have sold out. Have a look at what is new instead."
+  },
+  "password": {
+    "owner": "Store owner? Enter password",
+    "password": "Password",
+    "enter": "ENTER"
+  },
+  "gift_card": {
+    "title": "GIFT CARD",
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "expired": "This gift card has expired",
+    "expires_on": "Expires on {{ expires_on }}",
+    "use_at_checkout": "Use this code at checkout"
+  },
+  "popups": {
+    "signup": {
+      "whatsapp": "WhatsApp number",
+      "email": "Email",
+      "invalid_phone": "Please enter a 10-digit Indian mobile number.",
+      "success_eyebrow": "Welcome to Jouell",
+      "your_code": "Here is your code:",
+      "copy": "Copy",
+      "copied": "Copied",
+      "start_shopping": "Start shopping"
+    },
+    "exit": {
+      "use_code_html": "Use code <strong>{{ code }}</strong> at checkout.",
+      "keep_browsing": "Keep browsing",
+      "more": "+{{ count }} more"
+    },
+    "whatsapp": {
+      "label": "Chat with us on WhatsApp"
+    }
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "save": "Save to wishlist",
+    "saved": "Saved to wishlist",
+    "save_short": "Save",
+    "empty": "Nothing saved yet. Tap the heart on any piece to keep it here.",
+    "remove": "Remove"
+  },
+  "size_guide": {
+    "title": "Bangle size guide",
+    "intro": "Bangle sizes are the inside width (diameter) of the bangle. Most women wear 2.4 or 2.6.",
+    "size": "Size",
+    "diameter": "Inside diameter",
+    "circumference": "Inside circumference",
+    "fits": "Usually fits",
+    "fit_small": "Slim hands",
+    "fit_medium": "Most hands",
+    "fit_large": "Broader hands",
+    "measure_title": "How to find your size at home",
+    "step_1": "Take a bangle that fits you well and measure straight across the inside, edge to edge. Match it to the diameter above.",
+    "step_2": "No bangle? Bring your thumb and little finger together, as if putting a bangle on, and wrap a thread around the widest part of your hand.",
+    "step_3": "Measure the thread with a ruler and match it to the circumference above. If you are between two sizes, choose the larger one.",
+    "note": "Openable bangles have a screw hinge, so they are easier to put on. Still unsure? Message us on WhatsApp and we will help you choose."
+  }
+}
