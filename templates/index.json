@@ -1,0 +1,710 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/photo-1583391733956-3750e0ff4e8b.jpg",
+            "focal": "center 20%",
+            "kicker": "Shaadi season is here",
+            "heading": "A new look for every function",
+            "text": "Kundan, polki, pearl and oxidised sets for haldi to reception, from ₹840.",
+            "button_1_label": "Shop necklace sets",
+            "button_1_link": "/collections/necklace-sets",
+            "button_2_label": "See all collections",
+            "button_2_link": "/collections"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/photo-1610030469983-98e550d6193c.jpg",
+            "focal": "center 20%",
+            "kicker": "The sangeet edit",
+            "heading": "Made to sparkle on the dance floor",
+            "text": "American Diamond sets that catch the light in every photo.",
+            "button_1_label": "Shop American Diamond",
+            "button_1_link": "/collections/american-diamond",
+            "button_2_label": "",
+            "button_2_link": ""
+          }
+        },
+        "s3": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/photo-1600721391689-2564bb8055de.jpg",
+            "focal": "center 30%",
+            "kicker": "Under ₹1,500",
+            "heading": "Pieces you will keep wearing",
+            "text": "Oxidised, pearl and bead sets, light enough for every day.",
+            "button_1_label": "Shop under ₹1,500",
+            "button_1_link": "/collections/all?filter.v.price.lte=1500",
+            "button_2_label": "",
+            "button_2_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "autoplay": true,
+        "interval": 6,
+        "overlay": 75,
+        "height": 520,
+        "height_mobile": 560
+      }
+    },
+    "wedding_week": {
+      "type": "wedding-week",
+      "blocks": {
+        "haldi": {
+          "type": "day",
+          "settings": {
+            "function_name": "Haldi",
+            "function_local": "हल्दी",
+            "product_1": "royal-green-antique-beads-necklace-set",
+            "note_1": "Strung beads, 38 g. Turmeric wipes right off",
+            "product_2": "classic-white-pearl-set-with-crystal-ball-accents",
+            "note_2": "Shell pearls, 44 g. Lovely in daylight",
+            "product_3": "elephant-motif-oxidised-silver-set",
+            "note_3": "Silver-tone, 41 g. Our lightest pick"
+          }
+        },
+        "mehendi": {
+          "type": "day",
+          "settings": {
+            "function_name": "Mehendi",
+            "function_local": "मेहंदी",
+            "product_1": "gold-tone-green-kundan-designer-bangles",
+            "note_1": "Just bangles, so your hands stay free for mehendi",
+            "product_2": "multicolor-oxidised-tribal-choker-set",
+            "note_2": "Choker and earrings, 47 g",
+            "product_3": "gold-tone-white-meenakari-rajwada-bangles",
+            "note_3": "Enamel pair, sizes 2.4 to 2.8"
+          }
+        },
+        "sangeet": {
+          "type": "day",
+          "settings": {
+            "function_name": "Sangeet",
+            "function_local": "संगीत",
+            "product_1": "designer-american-diamond-layered-set",
+            "note_1": "Two layers, 61 g. Sparkles on camera",
+            "product_2": "emerald-green-statement-necklace-set",
+            "note_2": "Statement collar, 96 g. Made for photos",
+            "product_3": "premium-american-diamond-necklace-set",
+            "note_3": "Rhodium finish, 68 g"
+          }
+        },
+        "shaadi": {
+          "type": "day",
+          "settings": {
+            "function_name": "Shaadi",
+            "function_local": "शादी",
+            "product_1": "antique-gold-plated-bridal-choker-with-jhumkas",
+            "note_1": "Choker with jhumkas, 88 g",
+            "product_2": "ruby-pink-american-diamond-bridal-choker-set",
+            "note_2": "Choker and earrings, 74 g",
+            "product_3": "designer-antique-kundan-necklace-set",
+            "note_3": "Kundan-style set, 79 g"
+          }
+        },
+        "reception": {
+          "type": "day",
+          "settings": {
+            "function_name": "Reception",
+            "function_local": "रिसेप्शन",
+            "product_1": "elegant-pearl-kundan-necklace-set",
+            "note_1": "Pearl and kundan, 52 g. Soft and elegant",
+            "product_2": "temple-oxidised-necklace-set",
+            "note_2": "Silver-tone set, 58 g",
+            "product_3": "silver-american-diamond-openwork-bangles",
+            "note_3": "Bangle pair. Lovely with a plain saree"
+          }
+        }
+      },
+      "block_order": [
+        "haldi",
+        "mehendi",
+        "sangeet",
+        "shaadi",
+        "reception"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "Plan your wedding week",
+        "text": "Pick a set for each function and swap with the arrows until the week feels right.",
+        "total_label": "Your five sets",
+        "benchmark_label": "One gold necklace",
+        "benchmark_value": 412000,
+        "saved_label": "You save",
+        "footnote": "",
+        "button_label": "Add all five to bag"
+      }
+    },
+    "collections": {
+      "type": "collection-tiles",
+      "blocks": {
+        "t1": {
+          "type": "collection",
+          "settings": {
+            "collection": "necklace-sets",
+            "image": "shopify://shop_images/photo-1601121141461-9d6647bca1ed.jpg",
+            "label": "Necklace Sets"
+          }
+        },
+        "t2": {
+          "type": "collection",
+          "settings": {
+            "collection": "pendant-sets",
+            "image": "shopify://shop_images/photo-1611085583191-a3b181a88401.jpg",
+            "label": "Pendant Sets"
+          }
+        },
+        "t3": {
+          "type": "collection",
+          "settings": {
+            "collection": "bangles",
+            "image": "shopify://shop_images/photo-1596944924616-7b38e7cfac36.jpg",
+            "label": "Bangles"
+          }
+        },
+        "t4": {
+          "type": "collection",
+          "settings": {
+            "collection": "bracelets",
+            "image": "shopify://shop_images/photo-1619119069152-a2b331eb392a.jpg",
+            "label": "Bracelets"
+          }
+        },
+        "t5": {
+          "type": "collection",
+          "settings": {
+            "collection": "earrings",
+            "image": "shopify://shop_images/photo-1535632066927-ab7c9ab60908.jpg",
+            "label": "Earrings"
+          }
+        },
+        "t6": {
+          "type": "collection",
+          "settings": {
+            "collection": "oxidised-silver",
+            "image": "shopify://shop_images/photo-1589128777073-263566ae5e4d.jpg",
+            "label": "Oxidised Silver"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "Shop by category",
+        "link_label": "View all",
+        "link_url": "/collections",
+        "columns": 6
+      }
+    },
+    "necklaces": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "necklace-sets",
+        "kicker": "",
+        "heading": "Most-loved necklace sets",
+        "link_label": "See all [count]",
+        "limit": 4,
+        "columns": 4,
+        "ratio": "portrait",
+        "show_badge": true
+      }
+    },
+    "oxidised": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify://shop_images/photo-1589128777073-263566ae5e4d.jpg",
+        "layout": "image-left",
+        "style": "full",
+        "min_height": 460,
+        "kicker": "",
+        "heading": "Oxidised, for every day after",
+        "text": "<p>Temple motifs, tribal chokers and ghungroo jhumkas. Light enough to wear with a kurta, a saree or jeans.</p>",
+        "link_label": "Shop oxidised",
+        "link_url": "/collections/oxidised-silver"
+      }
+    },
+    "bangles": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "bangles",
+        "kicker": "",
+        "heading": "Bangles for the season",
+        "link_label": "Shop all bangles",
+        "limit": 4,
+        "columns": 4,
+        "ratio": "square",
+        "show_badge": false
+      }
+    },
+    "craft": {
+      "type": "craft-explorer",
+      "blocks": {
+        "c1": {
+          "type": "craft",
+          "settings": {
+            "collection": "kundan-polki",
+            "image": "shopify://shop_images/photo-1601121141461-9d6647bca1ed.jpg",
+            "name": "Kundan & Polki",
+            "kicker": "",
+            "short": "The classic bridal look",
+            "copy": "Uncut-stone style in gold-tone foil. Rich to look at, light on the neck.",
+            "from": "₹1,940",
+            "count": "",
+            "wear": ""
+          }
+        },
+        "c2": {
+          "type": "craft",
+          "settings": {
+            "collection": "american-diamond",
+            "image": "shopify://shop_images/photo-1583937443566-6fe1a1c6e400.jpg",
+            "name": "American Diamond",
+            "kicker": "",
+            "short": "Sparkle for the dance floor",
+            "copy": "Cubic zirconia in rhodium and gold-tone. Sparkles beautifully in photos.",
+            "from": "₹1,450",
+            "count": "",
+            "wear": ""
+          }
+        },
+        "c3": {
+          "type": "craft",
+          "settings": {
+            "collection": "oxidised-silver",
+            "image": "shopify://shop_images/photo-1589128777073-263566ae5e4d.jpg",
+            "name": "Temple & Oxidised",
+            "kicker": "",
+            "short": "Temple and tribal motifs",
+            "copy": "Blackened silver-tone with temple and tribal motifs. Our lightest pieces.",
+            "from": "₹1,670",
+            "count": "",
+            "wear": ""
+          }
+        },
+        "c4": {
+          "type": "craft",
+          "settings": {
+            "collection": "pearl",
+            "image": "shopify://shop_images/photo-1515562141207-7a88fb7ce338.jpg",
+            "name": "Pearl",
+            "kicker": "",
+            "short": "Soft and easy to wear",
+            "copy": "Shell and glass pearls on silk. Elegant and easy to wear.",
+            "from": "₹1,840",
+            "count": "",
+            "wear": ""
+          }
+        },
+        "c5": {
+          "type": "craft",
+          "settings": {
+            "collection": "meenakari-rajwada",
+            "image": "shopify://shop_images/photo-1602751584552-8ba73aad10e1.jpg",
+            "name": "Meenakari & Rajwada",
+            "kicker": "",
+            "short": "Colourful enamel bangles",
+            "copy": "Bright enamel over antique gold-tone, mostly bangles and kadas.",
+            "from": "₹3,630",
+            "count": "",
+            "wear": ""
+          }
+        },
+        "c6": {
+          "type": "craft",
+          "settings": {
+            "collection": "crystals-beads",
+            "image": "shopify://shop_images/photo-1606760227091-3dd870d97f1d.jpg",
+            "name": "Crystals & Beads",
+            "kicker": "",
+            "short": "Bright, light and under ₹1,500",
+            "copy": "Hand-strung glass and crystal beads, all under ₹1,500.",
+            "from": "₹840",
+            "count": "",
+            "wear": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "Find your craft",
+        "aside": ""
+      }
+    },
+    "price": {
+      "type": "price-tiers",
+      "blocks": {
+        "p1": {
+          "type": "tier",
+          "settings": {
+            "image": "shopify://shop_images/photo-1606760227091-3dd870d97f1d.jpg",
+            "title": "Under ₹1,500",
+            "text": "Beads, pearls and everyday studs",
+            "link": "/collections/all?filter.v.price.lte=1500"
+          }
+        },
+        "p2": {
+          "type": "tier",
+          "settings": {
+            "image": "shopify://shop_images/photo-1515562141207-7a88fb7ce338.jpg",
+            "title": "₹1,500 – ₹2,500",
+            "text": "Jhumkas, oxidised sets and bangles",
+            "link": "/collections/all?filter.v.price.gte=1500&filter.v.price.lte=2500"
+          }
+        },
+        "p3": {
+          "type": "tier",
+          "settings": {
+            "image": "shopify://shop_images/photo-1601121141461-9d6647bca1ed.jpg",
+            "title": "₹2,500 – ₹4,000",
+            "text": "Kundan and pendant sets",
+            "link": "/collections/all?filter.v.price.gte=2500&filter.v.price.lte=4000"
+          }
+        },
+        "p4": {
+          "type": "tier",
+          "settings": {
+            "image": "shopify://shop_images/photo-1602173574767-37ac01994b2a.jpg",
+            "title": "₹4,000 and up",
+            "text": "Bridal sets and kadas",
+            "link": "/collections/all?filter.v.price.gte=4000"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "Shop by budget",
+        "aside": ""
+      }
+    },
+    "promos": {
+      "type": "promo-banners",
+      "blocks": {
+        "gift": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/photo-1606760227091-3dd870d97f1d.jpg",
+            "tint": "#263E32",
+            "kicker_color": "#E7C98A",
+            "kicker": "",
+            "heading": "Free gift box and a handwritten card",
+            "text": "Every order comes ready to gift.",
+            "button_label": "Shop gifts",
+            "button_link": "/collections/all",
+            "button_bg": "#C79A4E",
+            "button_fg": "#1A1714"
+          }
+        },
+        "edit": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/photo-1583937443566-6fe1a1c6e400.jpg",
+            "tint": "#92162D",
+            "kicker_color": "#F6D9C9",
+            "kicker": "",
+            "heading": "Everything under ₹1,500",
+            "text": "Beads, pearls and studs for every day.",
+            "button_label": "Shop under ₹1,500",
+            "button_link": "/collections/all?filter.v.price.lte=1500",
+            "button_bg": "#FCFBF8",
+            "button_fg": "#92162D"
+          }
+        }
+      },
+      "block_order": [
+        "gift",
+        "edit"
+      ],
+      "settings": {}
+    },
+    "customers": {
+      "type": "testimonials",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/photo-1620656798579-1984d9e87df7.jpg",
+            "occasion": "Worn at a wedding",
+            "stars": 5,
+            "quote": "Wore it to a wedding with my lehenga and got compliments all night. Worth every rupee.",
+            "name": "Meera Patel",
+            "source": "",
+            "product": "emerald-green-statement-necklace-set"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/photo-1610030469983-98e550d6193c.jpg",
+            "occasion": "Worn at a sangeet",
+            "stars": 5,
+            "quote": "So light and comfortable. I forgot I was wearing it by the end of the sangeet.",
+            "name": "Priya Sharma",
+            "source": "",
+            "product": "designer-american-diamond-layered-set"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/photo-1600721391689-2564bb8055de.jpg",
+            "occasion": "Gifted to a friend",
+            "stars": 5,
+            "quote": "Gifted it to my best friend and she loved it. The green beads look so rich in person.",
+            "name": "Sneha Kapoor",
+            "source": "",
+            "product": "royal-green-antique-beads-necklace-set"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "Worn by you",
+        "rating": "",
+        "rating_label": "",
+        "show_image_placeholders": true,
+        "footer_text": "Tag <strong>@jouellindia</strong> to be featured.",
+        "link_label": "",
+        "link_url": "/collections/all"
+      }
+    },
+    "disclosure": {
+      "type": "disclosure",
+      "blocks": {
+        "d1": {
+          "type": "row",
+          "settings": {
+            "label": "Metal",
+            "value": "Silver, brass and copper alloy, plated gold-tone or rhodium"
+          }
+        },
+        "d2": {
+          "type": "row",
+          "settings": {
+            "label": "Stones",
+            "value": "Semi-precious stones, American Diamond and kundan-style settings"
+          }
+        },
+        "d3": {
+          "type": "row",
+          "settings": {
+            "label": "Weight",
+            "value": "Listed in grams on every set"
+          }
+        },
+        "d4": {
+          "type": "row",
+          "settings": {
+            "label": "Photos",
+            "value": "Taken of the actual pieces we ship"
+          }
+        },
+        "d5": {
+          "type": "row",
+          "settings": {
+            "label": "What it is not",
+            "value": "Gold or hallmarked silver. We never sell it as either."
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4",
+        "d5"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "What you are getting, honestly",
+        "text": "Fashion jewellery, not gold. Here is what goes into every set.",
+        "link_label": "Care and materials guide",
+        "link_url": "/pages/faqs"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Be the first to see new sets",
+        "text": "One email before every festive season, with new arrivals and offers."
+      }
+    },
+    "trust": {
+      "type": "trust-bar",
+      "blocks": {
+        "i1": {
+          "type": "item",
+          "settings": {
+            "title": "Free gift box",
+            "text": "With a handwritten card"
+          }
+        },
+        "i2": {
+          "type": "item",
+          "settings": {
+            "title": "Cash on delivery",
+            "text": "Pay when it arrives"
+          }
+        },
+        "i3": {
+          "type": "item",
+          "settings": {
+            "title": "Delivered in 3–7 days",
+            "text": "Anywhere in India"
+          }
+        },
+        "i4": {
+          "type": "item",
+          "settings": {
+            "title": "7-day exchange",
+            "text": "Easy and hassle-free"
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "i4"
+      ],
+      "settings": {}
+    },
+    "reels": {
+      "type": "social-reels",
+      "blocks": {
+        "reel1": {
+          "type": "reel",
+          "settings": {
+            "image": "shopify://shop_images/photo-1583391733956-3750e0ff4e8b.jpg",
+            "link": "",
+            "caption": "Shaadi season, styled our way",
+            "product": "antique-gold-plated-bridal-choker-with-jhumkas"
+          }
+        },
+        "reel2": {
+          "type": "reel",
+          "settings": {
+            "image": "shopify://shop_images/photo-1610030469983-98e550d6193c.jpg",
+            "link": "",
+            "caption": "Sangeet night in emerald",
+            "product": "emerald-green-statement-necklace-set"
+          }
+        },
+        "reel3": {
+          "type": "reel",
+          "settings": {
+            "image": "shopify://shop_images/photo-1620656798579-1984d9e87df7.jpg",
+            "link": "",
+            "caption": "Everyday gold-tone layers",
+            "product": "designer-american-diamond-layered-set"
+          }
+        },
+        "reel4": {
+          "type": "reel",
+          "settings": {
+            "image": "shopify://shop_images/photo-1600721391689-2564bb8055de.jpg",
+            "link": "",
+            "caption": "Pearls for the reception",
+            "product": "elegant-pearl-kundan-necklace-set"
+          }
+        },
+        "reel5": {
+          "type": "reel",
+          "settings": {
+            "image": "shopify://shop_images/photo-1606760227091-3dd870d97f1d.jpg",
+            "link": "",
+            "caption": "Haldi morning, beads on",
+            "product": "royal-green-antique-beads-necklace-set"
+          }
+        },
+        "reel6": {
+          "type": "reel",
+          "settings": {
+            "image": "shopify://shop_images/photo-1601121141461-9d6647bca1ed.jpg",
+            "link": "",
+            "caption": "Unboxing a bridal choker",
+            "product": "ruby-pink-american-diamond-bridal-choker-set"
+          }
+        }
+      },
+      "block_order": [
+        "reel1",
+        "reel2",
+        "reel3",
+        "reel4",
+        "reel5",
+        "reel6"
+      ],
+      "settings": {
+        "heading": "Seen on Instagram",
+        "text": "Real looks from real functions. Tap any reel to watch it on Instagram.",
+        "handle": "@jouellindia",
+        "profile_url": "https://www.instagram.com/jouellindia/",
+        "button_label": "Follow @jouellindia",
+        "ratio": "reel"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "collections",
+    "necklaces",
+    "wedding_week",
+    "oxidised",
+    "bangles",
+    "craft",
+    "price",
+    "promos",
+    "customers",
+    "disclosure",
+    "newsletter",
+    "reels"
+  ]
+}

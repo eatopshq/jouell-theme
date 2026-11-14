@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "kicker": "",
+        "per_page": 12,
+        "columns": 3,
+        "show_badge": true
+      }
+    },
+    "notes": {
+      "type": "rich-text-columns",
+      "blocks": {
+        "n1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Please check each product page for exactly what is included, materials, plating, care instructions and delivery.</p>"
+          }
+        },
+        "n2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>All Jouell pieces are fashion jewellery, not gold or hallmarked silver. Every order arrives gift-boxed with a pouch and a card, reaches most pincodes in 3–7 days, and can be exchanged within 7 days. Cash on delivery is available.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "notes"
+  ]
+}

@@ -1,0 +1,201 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "kicker": {
+          "type": "kicker",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": true,
+            "show_buy_now": true,
+            "show_notify": true
+          }
+        },
+        "delivery": {
+          "type": "delivery",
+          "settings": {
+            "text": "Ships within 24 hours · arrives in 3–7 days · cash on delivery available"
+          }
+        },
+        "spec_includes": {
+          "type": "spec",
+          "settings": {
+            "label": "In the box",
+            "value": "{{ product.metafields.custom.set_includes.value }}",
+            "fallback": "The jewellery as pictured"
+          }
+        },
+        "spec_materials": {
+          "type": "spec",
+          "settings": {
+            "label": "Material",
+            "value": "{{ product.metafields.custom.materials.value }}",
+            "fallback": "An alloy of silver, brass and copper"
+          }
+        },
+        "spec_closure": {
+          "type": "spec",
+          "settings": {
+            "label": "Closure",
+            "value": "{{ product.metafields.custom.closure.value }}",
+            "fallback": ""
+          }
+        },
+        "spec_care": {
+          "type": "spec",
+          "settings": {
+            "label": "Care",
+            "value": "",
+            "fallback": "Keep away from water, perfume and sweat. Wipe gently with a soft dry cloth after wearing, and store in the pouch it came in.",
+            "metafield": "custom.care"
+          }
+        },
+        "spec_delivery": {
+          "type": "spec",
+          "settings": {
+            "label": "Delivery",
+            "value": "",
+            "fallback": "Ships within 24 hours, arrives in 3–7 days. Exchange within 7 days."
+          }
+        },
+        "spec_packaging": {
+          "type": "spec",
+          "settings": {
+            "label": "Packaging",
+            "value": "",
+            "fallback": "Gift box, pouch and a handwritten card"
+          }
+        },
+        "spec_plating": {
+          "type": "spec",
+          "settings": {
+            "label": "Plating",
+            "value": "{{ product.metafields.custom.plating.value }}",
+            "fallback": "Gold-tone or rhodium plating, as pictured"
+          }
+        }
+      },
+      "block_order": [
+        "kicker",
+        "title",
+        "rating",
+        "price",
+        "description",
+        "buy",
+        "delivery",
+        "spec_includes",
+        "spec_packaging",
+        "spec_materials",
+        "spec_plating",
+        "spec_closure",
+        "spec_care",
+        "spec_delivery"
+      ],
+      "settings": {}
+    },
+    "how_it_wears": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "image-left",
+        "style": "panel",
+        "min_height": 360,
+        "kicker": "",
+        "heading": "How it looks on",
+        "text": "<p>The collar sits just above a blouse neckline, so it shows against the fabric and frames your face. Pair it with a high-neck blouse for the full effect.</p>",
+        "link_label": "",
+        "image": "shopify://shop_images/photo-1610030469983-98e550d6193c.jpg"
+      }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "blocks": {
+        "r1": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "Wore it to a wedding with my lehenga and got compliments all night. Worth every rupee.",
+            "author": "Meera Patel · via Instagram"
+          }
+        },
+        "r2": {
+          "type": "review",
+          "settings": {
+            "stars": 5,
+            "quote": "Light, comfortable and worth the price. The stones catch the light beautifully.",
+            "author": "Priya Sharma · via WhatsApp"
+          }
+        },
+        "r3": {
+          "type": "review",
+          "settings": {
+            "stars": 4,
+            "quote": "The green is deeper in person than on screen, and it arrived beautifully packed.",
+            "author": "Sneha Kapoor · via Email"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "heading": "What customers say",
+        "aside": ""
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Pair it with",
+        "intent": "complementary",
+        "limit": 4,
+        "pair_for_type": "Necklace Set",
+        "pair_collection": "earrings"
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "how_it_wears",
+    "reviews",
+    "related",
+    "recommendations"
+  ]
+}

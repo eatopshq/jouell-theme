@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "kicker": "",
+        "heading": "Jewellery for every celebration",
+        "text": "<p>We make handcrafted fashion jewellery that looks beautiful, feels light and does not cost a fortune, so you can wear something new to every function.</p>"
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "image-right",
+        "style": "plain",
+        "min_height": 300,
+        "kicker": "",
+        "heading": "How Jouell started",
+        "text": "<p>Jouell is part of Fashionpur India, which Ms. Ananya Choudhury started in 2012 to sell fashion apparel, jewellery, watches and accessories.</p><p>Over the years, jewellery became what our customers loved most, so we gave it a home of its own.</p><p>Every piece is handcrafted by skilled artisans, using semi-precious stones and alloys of silver, brass and copper.</p>",
+        "link_label": "",
+        "image": "shopify://shop_images/photo-1606760227091-3dd870d97f1d.jpg"
+      }
+    },
+    "numbers": {
+      "type": "stats-row",
+      "blocks": {
+        "n1": {
+          "type": "stat",
+          "settings": {
+            "value": "2012",
+            "label": "Fashionpur India founded"
+          }
+        },
+        "n2": {
+          "type": "stat",
+          "settings": {
+            "value": "3–7",
+            "label": "Days to most pincodes"
+          }
+        },
+        "n3": {
+          "type": "stat",
+          "settings": {
+            "value": "7",
+            "label": "Day exchange on every order"
+          }
+        },
+        "n4": {
+          "type": "stat",
+          "settings": {
+            "value": "₹840",
+            "label": "Where the collection starts"
+          }
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4"
+      ],
+      "settings": {}
+    },
+    "promises": {
+      "type": "text-columns",
+      "blocks": {
+        "c1": {
+          "type": "column",
+          "settings": {
+            "title": "The metal",
+            "text": "<p>An alloy of silver, brass and copper, plated in gold-tone or rhodium. It is fashion jewellery, not gold or hallmarked silver.</p>"
+          }
+        },
+        "c2": {
+          "type": "column",
+          "settings": {
+            "title": "The stones",
+            "text": "<p>Semi-precious stones, American Diamond and kundan-style settings, set by hand.</p>"
+          }
+        },
+        "c3": {
+          "type": "column",
+          "settings": {
+            "title": "The weight",
+            "text": "<p>Listed in grams on every product page, because a set you can dance in matters more than one that just looks heavy.</p>"
+          }
+        },
+        "c4": {
+          "type": "column",
+          "settings": {
+            "title": "The price",
+            "text": "<p>Beautiful jewellery at a fair price, so you can wear a new look to every function.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "kicker": "",
+        "heading": "Four things we will always tell you"
+      }
+    },
+    "craft": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "image-right",
+        "style": "full",
+        "min_height": 440,
+        "kicker": "",
+        "heading": "Made by hand, one piece at a time",
+        "text": "<p>Our artisans take care over every detail: a smooth finish, stones set firmly, and plating that holds up through a whole season of functions.</p><p>For us, jewellery is about the moments you wear it to, and the photos you keep afterwards.</p>",
+        "link_label": "",
+        "image": "shopify://shop_images/photo-1601121141461-9d6647bca1ed.jpg"
+      }
+    },
+    "contact": {
+      "type": "contact-quotes",
+      "blocks": {
+        "call": {
+          "type": "contact",
+          "settings": {
+            "label": "Call",
+            "value": "<a href=\"tel:+919958708555\">+91 99587 08555</a> · <a href=\"tel:+919873186107\">+91 98731 86107</a>"
+          }
+        },
+        "email": {
+          "type": "contact",
+          "settings": {
+            "label": "Email",
+            "value": "<a href=\"mailto:jouellindia@gmail.com\">jouellindia@gmail.com</a>"
+          }
+        },
+        "hours": {
+          "type": "contact",
+          "settings": {
+            "label": "Hours",
+            "value": "7 days a week, 9:00 am – 7:00 pm"
+          }
+        },
+        "firm": {
+          "type": "contact",
+          "settings": {
+            "label": "Parent firm",
+            "value": "Fashionpur India, est. 2012"
+          }
+        },
+        "q1": {
+          "type": "quote",
+          "settings": {
+            "quote": "Third order from Jouell and they never disappoint — wore it to a wedding with my lehenga and got compliments all night.",
+            "author": "Meera Patel · via Instagram"
+          }
+        },
+        "q2": {
+          "type": "quote",
+          "settings": {
+            "quote": "Was hesitant ordering for the first time, but the colour is gorgeous in person and the layered style looks elegant. Definitely ordering again.",
+            "author": "Anjali Reddy · via Email"
+          }
+        }
+      },
+      "block_order": [
+        "call",
+        "email",
+        "hours",
+        "firm",
+        "q1",
+        "q2"
+      ],
+      "settings": {
+        "contact_heading": "Questions? Talk to us",
+        "quotes_heading": "What customers say"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "story",
+    "numbers",
+    "promises",
+    "craft",
+    "contact"
+  ]
+}
