@@ -312,7 +312,7 @@
         "c4": {
           "type": "craft",
           "settings": {
-            "collection": "pearl",
+            "collection": "pearl-jewellery",
             "image": "shopify://shop_images/photo-1515562141207-7a88fb7ce338.jpg",
             "name": "Pearl",
             "kicker": "",
